@@ -50,7 +50,9 @@
 
   const waButtons = [$('#whatsappBtn'), $('#whatsappBtn2'), $('#footerWhatsApp')].filter(Boolean);
   waButtons.forEach((btn) => {
-    const preset = btn.id === 'whatsappBtn2' ? 'Hi Adpowers Digital — I want a free strategy call.' : 'Hi Adpowers Digital — I need help scaling my business.';
+    const preset = btn.id === 'whatsappBtn2'
+      ? 'Hi Adpowers Digital — I want a free strategy call.'
+      : 'Hi Adpowers Digital — I need help scaling my business.';
     btn.href = makeWaHref(preset);
   });
 
@@ -98,13 +100,13 @@
 
         // Optional: open WhatsApp with prefilled message after submit.
         // Comment out if you want form-only behavior.
-        const waText = `Hi Adpowers Digital —\n\nName: ${data.name}\nEmail: ${data.email}\nGoal: ${data.goal}\nWebsite: ${data.website || '—'}\nBudget: ${data.budget || '—'}\n\nMessage: ${data.message}`;
+        const waText = `Hi Adpowers Digital —\n\nName: ${data.name}\nWhatsApp: ${data.whatsapp}\nGoal: ${data.goal}\nBudget: ${data.budget || '—'}\n\nMessage: ${data.message}`;
         const waUrl = makeWaHref(waText);
         window.open(waUrl, '_blank', 'noopener');
       } catch (err) {
         console.error(err);
         setStatus('Could not send automatically. Opening WhatsApp instead…', false);
-        const waText = `Hi Adpowers Digital —\n\nName: ${data.name}\nEmail: ${data.email}\nGoal: ${data.goal}\n\nMessage: ${data.message}`;
+        const waText = `Hi Adpowers Digital —\n\nName: ${data.name}\nWhatsApp: ${data.whatsapp}\nGoal: ${data.goal}\n\nMessage: ${data.message}`;
         window.open(makeWaHref(waText), '_blank', 'noopener');
       }
     });
