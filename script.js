@@ -21,6 +21,41 @@
     });
   }
 
+  // Animated counters (elements had data-counter/data-target but nothing was driving them)
+  const counterEls = $$('[data-counter]');
+  const animateCounter = (el) => {
+    const target = parseFloat(el.dataset.target);
+    if (Number.isNaN(target)) return;
+    const isDecimal = String(el.dataset.target).includes('.');
+    const duration = 1400;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const value = target * eased;
+      el.textContent = isDecimal ? value.toFixed(1) : Math.round(value).toLocaleString('en-US');
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = isDecimal ? target.toFixed(1) : target.toLocaleString('en-US');
+    };
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window && counterEls.length) {
+    const counterIo = new IntersectionObserver(
+      (entries) => {
+        for (const ent of entries) {
+          if (ent.isIntersecting) {
+            animateCounter(ent.target);
+            counterIo.unobserve(ent.target);
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    counterEls.forEach((el) => counterIo.observe(el));
+  } else {
+    counterEls.forEach((el) => { el.textContent = el.dataset.target; });
+  }
+
   // Reveal animations
   const revealEls = $$('[data-animate]');
   if ('IntersectionObserver' in window) {
@@ -95,7 +130,7 @@
         }
 
         // Thank you UX
-        setStatus('Request received. We’ll contact you shortly.', true);
+        setStatus('Request received. We'll contact you shortly.', true);
         form.reset();
 
         // Optional: open WhatsApp with prefilled message after submit.
@@ -130,4 +165,3 @@
     });
   });
 })();
-
