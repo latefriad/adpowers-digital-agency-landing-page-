@@ -141,7 +141,7 @@
 
   /* ---------- SECTION SHELL ---------- */
   section{padding:110px 0;}
-  .section-head{max-width:600px; margin-bottom:60px;}
+  .section-head{text-align:center; max-width:600px; margin:0 auto 60px;}
   .section-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--cyan); margin-bottom:14px;}
   .section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem); font-weight:600; letter-spacing:-0.02em; line-height:1.2;}
   .section-head p{color:var(--muted); margin-top:14px; font-size:16px; line-height:1.6;}
@@ -158,13 +158,27 @@
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   /* ---------- SERVICES ---------- */
-  .services-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:16px; overflow:hidden;}
-  .service-card{background:var(--surface); padding:36px 28px; transition:background .25s;}
-  .service-card:hover{background:var(--bg-soft);}
-  .service-icon{font-size:26px; margin-bottom:20px; display:inline-block;}
-  .service-card h3{font-size:18px; font-weight:600; margin-bottom:8px; letter-spacing:-0.01em;}
-  .service-card p{font-size:14px; color:var(--muted); line-height:1.6;}
-  .service-tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--cyan); text-transform:uppercase; letter-spacing:0.05em; margin-top:14px; display:block;}
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .service-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:36px 28px; transition:all .35s ease; position:relative; overflow:hidden;
+  }
+  .service-card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--blue),var(--cyan)); opacity:0; transition:opacity .35s;
+  }
+  .service-card:hover{border-color:rgba(34,211,238,0.3); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,0.3);}
+  .service-card:hover::before{opacity:1;}
+  .service-icon{
+    width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    background:rgba(37,99,235,0.10); border:1px solid rgba(37,99,235,0.20);
+    font-size:24px; margin-bottom:20px; transition:all .35s;
+  }
+  .service-card:hover .service-icon{background:rgba(34,211,238,0.12); border-color:rgba(34,211,238,0.30);}
+  .service-card h3{font-size:18px; font-weight:600; margin-bottom:10px; letter-spacing:-0.01em;}
+  .service-card p{font-size:14px; color:var(--muted); line-height:1.65;}
+  .service-tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--cyan); text-transform:uppercase; letter-spacing:0.05em; margin-top:16px; display:block;}
+  .service-card:hover .service-tag{color:var(--cyan);}
 
   .services-cta{
     margin-top:48px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
@@ -319,9 +333,11 @@
   @media (max-width:900px){
     .process-steps{grid-template-columns:repeat(2,1fr); gap:40px;}
     .process-steps::before{display:none;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:560px){
     .process-steps{grid-template-columns:1fr; gap:32px;}
+    .services-grid{grid-template-columns:1fr;}
     .cta-form-grid{grid-template-columns:1fr;}
     .cta-buttons{flex-direction:column; align-items:center;}
     .cta-buttons a{width:100%; justify-content:center;}
@@ -455,38 +471,44 @@
     </div>
     <div class="services-grid reveal">
       <div class="service-card">
-        <span class="service-icon">📣</span>
+        <div class="service-icon">📣</div>
         <h3>Facebook Ads</h3>
-        <p>Campagnes de publicité payante, ciblage précis, création publicitaire testée et optimisée en continu.</p>
+        <p>Campagnes de publicité Meta optimisées. Ciblage précis, créatifs testés en A/B, et optimisation continue pour maximiser chaque dinar investi.</p>
         <span class="service-tag">Publicité payante</span>
       </div>
       <div class="service-card">
-        <span class="service-icon">🛒</span>
+        <div class="service-icon">🛒</div>
         <h3>Scaling E-commerce</h3>
-        <p>Tunnels de conversion, rétention client et systèmes de revenu pensés pour scaler durablement.</p>
+        <p>Tunnels de conversion haute performance, systèmes de rétention client et stratégies de scaling pour passer de 100 à 10 000+ commandes.</p>
         <span class="service-tag">Systèmes de revenu</span>
       </div>
       <div class="service-card">
-        <span class="service-icon">🌐</span>
+        <div class="service-icon">🌐</div>
         <h3>Développement Web</h3>
-        <p>Sites vitrines et boutiques en ligne, WordPress ou sur-mesure, rapides et conçus pour convertir.</p>
+        <p>Sites vitrines premium et boutiques en ligne. WordPress ou sur-mesure, rapides, responsive et conçus pour transformer les visiteurs en clients.</p>
         <span class="service-tag">WordPress + sur-mesure</span>
       </div>
       <div class="service-card">
-        <span class="service-icon">🎨</span>
+        <div class="service-icon">🎨</div>
         <h3>Branding & Créatif</h3>
-        <p>Identité visuelle, direction créative et contenus qui donnent envie de faire confiance à votre marque.</p>
+        <p>Identité visuelle complète, direction créative et contenus qui positionnent votre marque comme la référence de votre secteur.</p>
         <span class="service-tag">Design qui convertit</span>
       </div>
       <div class="service-card">
-        <span class="service-icon">🧠</span>
+        <div class="service-icon">🧠</div>
         <h3>Stratégie Marketing</h3>
-        <p>Audits, roadmaps de croissance et priorisation claire pour chaque dinar investi.</p>
+        <p>Audit complet de votre écosystème digital, roadmaps de croissance priorisées et plan d'action clair pour chaque dinar investi.</p>
         <span class="service-tag">Audits • Roadmaps • ROI</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Analytics & Tracking</h3>
+        <p>Installation et configuration du tracking complet. Meta Pixel, Google Analytics, conversions API — chaque action est mesurée.</p>
+        <span class="service-tag">Données • Attribution • Insights</span>
       </div>
     </div>
     <div class="services-cta reveal">
-      <p>On ne "lance" pas des pubs. On construit de la croissance mesurable, étape par étape.</p>
+      <p>On ne "lance" pas des pubs. On construit un système de croissance mesurable, étape par étape.</p>
       <a href="#contact" class="btn-primary">Réserver un appel stratégique</a>
     </div>
   </div>
