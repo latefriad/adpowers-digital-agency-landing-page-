@@ -300,7 +300,7 @@
         <a href="#services">Services</a>
         <a href="#systeme">Système</a>
         <a href="#resultats">Résultats</a>
-        <a href="#booking" class="btn btn-nav">Réserver un appel</a>
+        <a href="contact.html" class="btn btn-nav">Démarrer un projet</a>
       </div>
     </nav>
   </div>
@@ -316,8 +316,8 @@
       </h1>
       <p class="fade-up delay-2 visible">Ne payez plus pour des "clics". Investissez dans un système prédictible. Facebook Ads, Tunnels E-commerce et Créatifs conçus pour le ROI.</p>
       <div class="hero-ctas fade-up delay-3 visible">
-        <a href="#booking" class="btn btn-primary">
-          Réserver un Appel →
+        <a href="https://wa.me/213779411291" class="btn btn-primary" target="_blank">
+          Résoudre mes problèmes de vente →
         </a>
         <a href="#services" class="btn btn-secondary">
           Explorer nos services
@@ -446,38 +446,7 @@
   </div>
 </section>
 
-<section id="booking">
-  <div class="wrap">
-    <div class="section-head fade-up">
-      <h2 class="text-gradient">Réservez un Appel Stratégique</h2>
-      <p>Choisissez le créneau qui vous convient pour un audit gratuit de 30 minutes avec notre équipe.</p>
-    </div>
-    
-    <div class="fade-up delay-1" style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); max-width: 900px; margin: 0 auto;">
-      <form id="booking-form" style="display: flex; flex-direction: column; gap: 16px; padding: 20px;">
-        <input type="text" id="bf-name" placeholder="Votre nom complet" required style="padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: #FFF; font-family: inherit; font-size: 16px; outline: none; transition: border 0.3s;">
-        <input type="tel" id="bf-phone" placeholder="Numéro de téléphone (WhatsApp)" required style="padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: #FFF; font-family: inherit; font-size: 16px; outline: none; transition: border 0.3s;">
-        <select id="bf-service" style="padding: 16px; border-radius: 12px; background: #0B1120; border: 1px solid var(--border); color: #FFF; font-family: inherit; font-size: 16px; outline: none;">
-          <option value="Meta Ads">Meta Ads Media Buying</option>
-          <option value="Création de Site Web">Création de Site Web</option>
-          <option value="Création de Contenu / Vidéo">Création de Contenu / Vidéo</option>
-          <option value="Autre">Autre projet</option>
-        </select>
-        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 8px;">Demander mon audit gratuit →</button>
-      </form>
-      <script>
-        document.getElementById('booking-form').addEventListener('submit', function(e) {
-          e.preventDefault();
-          const name = document.getElementById('bf-name').value;
-          const phone = document.getElementById('bf-phone').value;
-          const service = document.getElementById('bf-service').value;
-          const text = `Bonjour Adpowers ! Je m'appelle ${name}. Je souhaite réserver un appel stratégique concernant : ${service}. Mon numéro est le ${phone}.`;
-          window.open(`https://wa.me/213779411291?text=${encodeURIComponent(text)}`, '_blank');
-        });
-      </script>
-    </div>
-  </div>
-</section>
+
 
 <footer style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 60px;">
   <div class="wrap" style="text-align: center; color: var(--muted);">
