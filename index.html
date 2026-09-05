@@ -454,10 +454,27 @@
     </div>
     
     <div class="fade-up delay-1" style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); max-width: 900px; margin: 0 auto;">
-      <!-- Calendly inline widget begin -->
-      <div class="calendly-inline-widget" data-url="https://calendly.com/calendly?hide_event_type_details=1&hide_gdpr_banner=1&background_color=030712&text_color=F8FAFC&primary_color=06B6D4" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      <!-- Calendly inline widget end -->
+      <form id="booking-form" style="display: flex; flex-direction: column; gap: 16px; padding: 20px;">
+        <input type="text" id="bf-name" placeholder="Votre nom complet" required style="padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: #FFF; font-family: inherit; font-size: 16px; outline: none; transition: border 0.3s;">
+        <input type="tel" id="bf-phone" placeholder="Numéro de téléphone (WhatsApp)" required style="padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: #FFF; font-family: inherit; font-size: 16px; outline: none; transition: border 0.3s;">
+        <select id="bf-service" style="padding: 16px; border-radius: 12px; background: #0B1120; border: 1px solid var(--border); color: #FFF; font-family: inherit; font-size: 16px; outline: none;">
+          <option value="Meta Ads">Meta Ads Media Buying</option>
+          <option value="Création de Site Web">Création de Site Web</option>
+          <option value="Création de Contenu / Vidéo">Création de Contenu / Vidéo</option>
+          <option value="Autre">Autre projet</option>
+        </select>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 8px;">Demander mon audit gratuit →</button>
+      </form>
+      <script>
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = document.getElementById('bf-name').value;
+          const phone = document.getElementById('bf-phone').value;
+          const service = document.getElementById('bf-service').value;
+          const text = `Bonjour Adpowers ! Je m'appelle ${name}. Je souhaite réserver un appel stratégique concernant : ${service}. Mon numéro est le ${phone}.`;
+          window.open(`https://wa.me/213779411291?text=${encodeURIComponent(text)}`, '_blank');
+        });
+      </script>
     </div>
   </div>
 </section>
