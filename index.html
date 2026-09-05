@@ -272,9 +272,18 @@
   .service-row p { font-size: 16px; color: var(--muted); line-height: 1.6; max-width: 500px; }
   
   @media(max-width: 900px) {
-    .services-layout { flex-direction: column; }
-    .services-sticky { position: static; max-width: 100%; margin-bottom: 40px; }
-    .service-row { opacity: 1; transform: scale(1); }
+    .services-layout { flex-direction: column; gap: 30px; padding: 20px 0; }
+    .services-sticky { position: static; max-width: 100%; margin-bottom: 20px; text-align: center; }
+    .services-sticky h2 { font-size: 2.2rem; }
+    .services-list { width: 100%; gap: 20px; }
+    .service-row { 
+      padding: 30px 24px; 
+      opacity: 1 !important; /* Force opacity on mobile */
+      transform: scale(1) !important; /* Force scale on mobile */
+    }
+    .service-row-icon { width: 48px; height: 48px; font-size: 24px; margin-bottom: 16px; }
+    .service-row h3 { font-size: 22px; margin-bottom: 8px; }
+    .service-row p { font-size: 14px; }
   }
 </style>
 </head>
@@ -477,23 +486,28 @@
       observer.observe(element);
     }
   });
-  // Sticky Scroll Animations for Services
-  const scrollObserverOptions = {
-    root: null,
-    rootMargin: '-30% 0px -40% 0px',
-    threshold: 0.1
-  };
-  const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      } else {
-        entry.target.classList.remove('active');
-      }
-    });
-  }, scrollObserverOptions);
-
-  document.querySelectorAll('.scroll-active').forEach(el => scrollObserver.observe(el));
+  // Sticky Scroll Animations for Services (Desktop Only)
+  if (window.matchMedia("(min-width: 900px)").matches) {
+    const scrollObserverOptions = {
+      root: null,
+      rootMargin: '-30% 0px -40% 0px',
+      threshold: 0.1
+    };
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, scrollObserverOptions);
+  
+    document.querySelectorAll('.scroll-active').forEach(el => scrollObserver.observe(el));
+  } else {
+    // On mobile, just make all of them active statically
+    document.querySelectorAll('.scroll-active').forEach(el => el.classList.add('active'));
+  }
 </script>
 
 </body>
