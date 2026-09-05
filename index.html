@@ -233,6 +233,49 @@
     .hero { padding: 120px 0 60px; }
     .funnel-step { flex-direction: column; gap: 12px; padding: 24px; }
   }
+  /* Sticky Scroll Services */
+  .services-layout {
+    display: flex; gap: 60px; padding: 40px 0; align-items: flex-start;
+  }
+  .services-sticky {
+    position: sticky; top: 120px; flex: 1; max-width: 400px;
+  }
+  .services-sticky h2 {
+    font-size: clamp(2.4rem, 4vw, 3.5rem); margin-bottom: 20px;
+  }
+  .services-sticky p {
+    color: var(--muted); font-size: 1.1rem; line-height: 1.6;
+  }
+  .services-list {
+    flex: 2; display: flex; flex-direction: column; gap: 40px;
+  }
+  .service-row {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+    padding: 48px 40px; backdrop-filter: blur(16px);
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.3; transform: scale(0.95); display: block;
+  }
+  .service-row.active {
+    opacity: 1; transform: scale(1); border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(6, 182, 212, 0.1);
+  }
+  .service-row-icon {
+    font-size: 32px; width: 64px; height: 64px; border-radius: 16px;
+    background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px; border: 1px solid var(--border); transition: all 0.4s;
+  }
+  .service-row.active .service-row-icon {
+    background: var(--cyan); border-color: var(--cyan); color: #fff; transform: scale(1.1) rotate(5deg);
+  }
+  .service-row h3 { font-size: 26px; margin-bottom: 12px; transition: color 0.4s; }
+  .service-row.active h3 { color: var(--cyan); }
+  .service-row p { font-size: 16px; color: var(--muted); line-height: 1.6; max-width: 500px; }
+  
+  @media(max-width: 900px) {
+    .services-layout { flex-direction: column; }
+    .services-sticky { position: static; max-width: 100%; margin-bottom: 40px; }
+    .service-row { opacity: 1; transform: scale(1); }
+  }
 </style>
 </head>
 <body>
@@ -284,41 +327,46 @@
 
 <section id="services">
   <div class="wrap">
-    <div class="section-head fade-up">
-      <h2 class="text-gradient">Nos expertises</h2>
-      <p>Des systèmes spécialisés avec des formulaires dédiés pour cadrer votre besoin instantanément.</p>
-    </div>
-    
-    <div class="services-grid">
-      <a href="facebook-ads.html" class="service-card fade-up">
-        <div class="service-icon">📱</div>
-        <h3>Meta Ads Media Buying</h3>
-        <p>Acquisition massive et retargeting chirurgical. On gère vos budgets pour maximiser votre ROAS.</p>
-      </a>
+    <div class="services-layout">
       
-      <a href="websites.html" class="service-card fade-up delay-1">
-        <div class="service-icon">🌐</div>
-        <h3>Création de Site Web</h3>
-        <p>E-commerce, Landing Pages, Sites Vitrines et Plateformes sur-mesure ultra-performantes.</p>
-      </a>
-      
-      <a href="contact.html" class="service-card fade-up delay-2">
-        <div class="service-icon">🎙️</div>
-        <h3>Voice Off</h3>
-        <p>Enregistrement de voix professionnelles pour vos vidéos promotionnelles, publicités et présentations.</p>
-      </a>
-      
-      <a href="contact.html" class="service-card fade-up delay-3">
-        <div class="service-icon">🎬</div>
-        <h3>Montage Vidéo</h3>
-        <p>Montage dynamique, étalonnage et motion design pour des vidéos qui captent l'attention de votre audience.</p>
-      </a>
+      <div class="services-sticky fade-up">
+        <div class="badge"><span class="dot"></span> Expertises</div>
+        <h2 class="text-gradient">Nos Services</h2>
+        <p>Une approche 360° pour développer votre marque. Scrollez pour découvrir comment nous transformons votre budget en croissance.</p>
+      </div>
 
-      <a href="contact.html" class="service-card fade-up delay-1">
-        <div class="service-icon">✨</div>
-        <h3>Création de Contenu</h3>
-        <p>Production de visuels, rédaction publicitaire (copywriting) et assets créatifs conçus pour convertir.</p>
-      </a>
+      <div class="services-list">
+        <a href="facebook-ads.html" class="service-row scroll-active">
+          <div class="service-row-icon">📱</div>
+          <h3>Meta Ads Media Buying</h3>
+          <p>Acquisition massive et retargeting chirurgical. On gère vos budgets pour maximiser votre ROAS.</p>
+        </a>
+        
+        <a href="websites.html" class="service-row scroll-active">
+          <div class="service-row-icon">🌐</div>
+          <h3>Création de Site Web</h3>
+          <p>E-commerce, Landing Pages, Sites Vitrines et Plateformes sur-mesure ultra-performantes.</p>
+        </a>
+        
+        <a href="contact.html" class="service-row scroll-active">
+          <div class="service-row-icon">🎙️</div>
+          <h3>Voice Off</h3>
+          <p>Enregistrement de voix professionnelles pour vos vidéos promotionnelles, publicités et présentations.</p>
+        </a>
+        
+        <a href="contact.html" class="service-row scroll-active">
+          <div class="service-row-icon">🎬</div>
+          <h3>Montage Vidéo</h3>
+          <p>Montage dynamique, étalonnage et motion design pour des vidéos qui captent l'attention de votre audience.</p>
+        </a>
+
+        <a href="contact.html" class="service-row scroll-active">
+          <div class="service-row-icon">✨</div>
+          <h3>Création de Contenu</h3>
+          <p>Production de visuels, rédaction publicitaire (copywriting) et assets créatifs conçus pour convertir.</p>
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -429,6 +477,23 @@
       observer.observe(element);
     }
   });
+  // Sticky Scroll Animations for Services
+  const scrollObserverOptions = {
+    root: null,
+    rootMargin: '-30% 0px -40% 0px',
+    threshold: 0.1
+  };
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      } else {
+        entry.target.classList.remove('active');
+      }
+    });
+  }, scrollObserverOptions);
+
+  document.querySelectorAll('.scroll-active').forEach(el => scrollObserver.observe(el));
 </script>
 
 </body>
