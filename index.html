@@ -73,10 +73,25 @@
   
   .nav-links { display: flex; gap: 8px; align-items: center; }
   .nav-links a {
-    font-size: 14px; font-weight: 600; color: var(--muted);
-    padding: 10px 16px; border-radius: 99px; transition: all 0.3s ease;
+    padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    color: var(--muted); transition: all 0.2s;
   }
   .nav-links a:hover { color: var(--text); background: var(--surface); }
+  
+  /* Dropdown Menu */
+  .dropdown { position: relative; }
+  .dropdown-content {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 8px; min-width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100;
+  }
+  .dropdown:hover .dropdown-content { display: flex; flex-direction: column; }
+  .dropdown-content a {
+    padding: 10px 16px; color: var(--muted); border-radius: 6px; font-size: 14px;
+    display: block; width: 100%; text-align: left;
+  }
+  .dropdown-content a:hover { background: rgba(255,255,255,0.05); color: #fff; }
   .btn-nav {
     background: linear-gradient(135deg, var(--primary), var(--accent));
     color: #FFF !important; padding: 12px 24px !important; margin-left: 8px;
@@ -355,7 +370,17 @@
     <nav>
       <a href="#" class="logo"><img src="logo.png" alt="Adpowers Digital"> Adpowers</a>
       <div class="nav-links">
-        <a href="#services">Services</a>
+        <div class="dropdown">
+          <a href="#services" style="cursor: pointer;">Services ▾</a>
+          <div class="dropdown-content">
+            <a href="testili.html">🧪 Testili Product</a>
+            <a href="facebook-ads.html">📱 Meta Ads</a>
+            <a href="websites.html">🌐 Création Site Web</a>
+            <a href="contact.html">🎙️ Voice Off</a>
+            <a href="contact.html">🎬 Montage Vidéo</a>
+            <a href="contact.html">✨ Création Contenu</a>
+          </div>
+        </div>
         <a href="#systeme">Système</a>
         <a href="#resultats">Résultats</a>
         <a href="contact.html" class="btn btn-nav">Démarrer un projet</a>
@@ -433,7 +458,7 @@
           <p>Production de visuels, rédaction publicitaire (copywriting) et assets créatifs conçus pour convertir.</p>
         </a>
 
-        <a href="contact.html" class="service-row scroll-active">
+        <a href="testili.html" class="service-row scroll-active">
           <div class="service-row-icon">📦</div>
           <h3>Testili Product</h3>
           <p>Testing approfondi de vos produits e-commerce. On valide vos produits winners avec des campagnes ciblées.</p>

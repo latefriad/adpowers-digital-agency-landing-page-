@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="logo.png">
+<title>TESTILI — Adpowers Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030712;
+    --surface: #0B1120;
+    --border: #1E293B;
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --primary: #22D3EE;
+    --primary-glow: rgba(34, 211, 238, 0.3);
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --red: #ef4444;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  a { text-decoration: none; color: inherit; }
+  
+  /* Navbar (Matching Home) */
+  .navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .navbar .wrap { display: flex; justify-content: space-between; align-items: center; flex-direction: row-reverse; }
+  .logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 20px; display: flex; align-items: center; gap: 12px; }
+  .nav-links { display: flex; gap: 32px; align-items: center; flex-direction: row-reverse; }
+  .nav-links a { font-size: 15px; font-weight: 500; color: var(--text); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--primary); }
+  .btn-nav {
+    background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border);
+  }
+  
+  /* Hero */
+  .hero {
+    padding: 180px 0 100px;
+    text-align: center;
+    background: radial-gradient(circle at center 0%, var(--primary-glow), transparent 60%);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 99px; background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2);
+    color: var(--primary); font-size: 14px; font-weight: 600; margin-bottom: 24px;
+  }
+  .hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.1; }
+  .hero p { font-size: 20px; color: var(--muted); max-width: 600px; margin: 0 auto 40px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--primary); color: #000; font-weight: 700; font-size: 16px;
+    padding: 16px 32px; border-radius: 12px; transition: transform 0.2s; box-shadow: 0 10px 20px var(--primary-glow);
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+
+  /* Section Styles */
+  .section { padding: 80px 0; border-top: 1px solid var(--border); }
+  .section-title { font-size: 32px; font-weight: 700; margin-bottom: 40px; text-align: center; color: var(--primary); }
+  
+  /* Grid Layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px;
+  }
+  .card h3 { font-size: 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  
+  ul.features-list { list-style: none; }
+  ul.features-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; font-size: 16px; }
+  ul.features-list li span.icon { font-size: 20px; }
+  
+  /* Pricing Box */
+  .pricing-box {
+    background: linear-gradient(180deg, rgba(34,211,238,0.1) 0%, transparent 100%);
+    border: 1px solid var(--primary); text-align: center;
+  }
+  .price { font-size: 48px; font-weight: 800; font-family: 'Inter', sans-serif; color: #FFF; margin: 16px 0; }
+  .price span { font-size: 20px; color: var(--muted); }
+  
+  /* Funnel Steps */
+  .funnel-container {
+    display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 600px; margin: 0 auto;
+  }
+  .funnel-step {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 100%; text-align: center;
+    position: relative;
+  }
+  .funnel-arrow { font-size: 24px; color: var(--primary); }
+  
+  /* Verdicts */
+  .verdict { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-radius: 12px; margin-bottom: 12px; font-weight: 600;}
+  .v-winner { background: rgba(34, 197, 94, 0.1); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.2); }
+  .v-optimize { background: rgba(245, 158, 11, 0.1); color: var(--orange); border: 1px solid rgba(245, 158, 11, 0.2); }
+  .v-kill { background: rgba(239, 68, 68, 0.1); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.2); }
+  
+  .disclaimer {
+    background: rgba(239, 68, 68, 0.05); border: 1px dashed var(--red); padding: 24px; border-radius: 16px; text-align: center; margin-top: 40px;
+  }
+  .disclaimer h4 { color: var(--red); font-size: 20px; margin-bottom: 8px; }
+
+  /* Addons */
+  .addon-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .addon-card:hover { border-color: var(--primary); }
+  .addon-card h4 { font-size: 20px; margin-bottom: 8px; }
+  .addon-card p { color: var(--muted); font-size: 14px; }
+
+  @media(max-width: 900px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      Adpowers <img src="logo.png" alt="Adpowers" style="width: 32px; border-radius: 8px;">
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#services">Services</a>
+      <a href="https://wa.me/213779411291" target="_blank" class="btn-nav">احجز الآن</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="badge">🧪 Low-ticket Entry Offer</div>
+    <h1>TESTILI</h1>
+    <p>اختبر منتجك قبل ما تكبّر عليه. مبني على Data حقيقية لمدة 7 أيام.</p>
+    <a href="https://wa.me/213779411291?text=Bonjour%20Adpowers,%20je%20suis%20intéressé%20par%20l'offre%20TESTILI" target="_blank" class="btn-primary">
+      اطلب الخدمة الآن — 4,500 DA
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid-2">
+      <div class="card pricing-box">
+        <h3>💰 الاستثمار</h3>
+        <div class="price">4,500 <span>DA</span></div>
+        <p style="color: var(--muted); margin-bottom: 24px;">مدة الاختبار: 7 أيام</p>
+        
+        <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; text-align: right; border: 1px solid var(--border);">
+          <p style="margin-bottom: 8px;"><strong>مثال على الميزانية:</strong></p>
+          <p>Service TESTILI: <strong>4,500 DA</strong></p>
+          <p>Ad Budget (منفصل): <strong>20,000 DA</strong></p>
+          <hr style="border: none; border-top: 1px solid var(--border); margin: 12px 0;">
+          <p>Total Initial Budget: <strong>24,500 DA</strong></p>
+        </div>
+      </div>
+      
+      <div class="card" style="text-align: right;">
+        <h3>✅ ماذا يشمل 4,500 DA؟</h3>
+        <ul class="features-list">
+          <li><span class="icon">🔎</span> تحليل سريع للمنتج والـ Offer</li>
+          <li><span class="icon">🎯</span> إعداد الاستهداف (Targeting)</li>
+          <li><span class="icon">⚙️</span> إعداد Campaign Meta Ads</li>
+          <li><span class="icon">🧪</span> Testing للـ Creative / Audience</li>
+          <li><span class="icon">📊</span> Monitoring خلال فترة الاختبار</li>
+          <li><span class="icon">📈</span> Optimisation أساسية</li>
+          <li><span class="icon">📝</span> تقرير مختصر في نهاية الاختبار</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="disclaimer">
+      <h4>🔥 "ما نضمنولكش أن المنتج يربح، نضمنولك Test مبني على Data."</h4>
+      <p style="color: var(--muted);">هذه الخدمة مصممة لاختبار المنتجات بدقة. نحن لا نعدك بمنتج رابح، بل نعدك باختبار احترافي يحميك من الخسارة ويظهر لك الحقيقة بالأرقام.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: rgba(255,255,255,0.02);">
+  <div class="wrap">
+    <h2 class="section-title">كيف يكون الـ Funnel؟</h2>
+    
+    <div class="funnel-container">
+      <div class="funnel-step">
+        <strong>1. عندك Product جديد؟</strong>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 8px;">ما تعرفش إذا يستاهل تستثمر فيه وتكبر الميزانية؟</p>
+      </div>
+      <div class="funnel-arrow">⬇️</div>
+      <div class="funnel-step" style="border-color: var(--primary);">
+        <strong style="color: var(--primary);">2. TESTILI — 4,500 DA</strong>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 8px;">7 Days Product Testing</p>
+      </div>
+      <div class="funnel-arrow">⬇️</div>
+      <div class="funnel-step">
+        <strong>3. مرحلة الـ Test</strong>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 8px;">Meta Ads + Testing + Data Analysis</p>
+      </div>
+      <div class="funnel-arrow">⬇️</div>
+      <div class="funnel-step">
+        <strong>4. النتائج (Result)</strong>
+        <div style="margin-top: 16px;">
+          <div class="verdict v-winner"><span>🟢 WINNER</span> <span>ننتقل للـ Scaling</span></div>
+          <div class="verdict v-optimize"><span>🟠 OPTIMIZE</span> <span>نعدلو ونعاودو Test</span></div>
+          <div class="verdict v-kill"><span>🔴 KILL</span> <span>نوقفو المنتج تماماً</span></div>
+        </div>
+      </div>
+      <div class="funnel-arrow">⬇️</div>
+      <div class="funnel-step" style="background: linear-gradient(135deg, rgba(34,211,238,0.1), transparent); border-color: var(--primary);">
+        <strong style="color: var(--primary); font-size: 20px;">5. Upsell: Adpowers Media Buying 🚀</strong>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 8px;">تحويل الـ Winner إلى Scaling Campaign وإدارة شهرية لزيادة الأرباح.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title" style="color: #FFF;">خدمات إضافية (Add-ons)</h2>
+    <p style="text-align: center; color: var(--muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+      خدمة TESTILI تغطي الـ Media Buying والـ Testing. إذا كنت بحاجة إلى محتوى، يمكننا إضافته بأسعار خاصة:
+    </p>
+    
+    <div class="grid-3">
+      <div class="addon-card">
+        <div style="font-size: 32px; margin-bottom: 16px;">🎨</div>
+        <h4>Creative & Videos</h4>
+        <p>تصميم صور ومونتاج فيديوهات احترافية للمنتج الخاص بك.</p>
+      </div>
+      <div class="addon-card">
+        <div style="font-size: 32px; margin-bottom: 16px;">🌐</div>
+        <h4>Landing Page</h4>
+        <p>بناء صفحة هبوط سريعة التحميل ومحسنة للتحويل (Conversion).</p>
+      </div>
+      <div class="addon-card">
+        <div style="font-size: 32px; margin-bottom: 16px;">🎙️</div>
+        <h4>Voice Over</h4>
+        <p>تعليق صوتي احترافي يزيد من مصداقية الإعلان الخاص بك.</p>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 60px;">
+      <a href="https://wa.me/213779411291" target="_blank" class="btn-primary">تواصل معنا لمناقشة مشروعك</a>
+    </div>
+  </div>
+</section>
+
+<footer style="padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted);">
+  <div class="wrap">
+    <img src="logo.png" alt="Adpowers" style="width: 40px; border-radius: 8px; margin-bottom: 16px;">
+    <p>© 2026 Adpowers Digital. Tous droits réservés.</p>
+  </div>
+</footer>
+
+</body>
+</html>
