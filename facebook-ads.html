@@ -70,6 +70,7 @@
   .section-subtitle { text-align: center; color: var(--primary); font-weight: 700; margin-bottom: 12px; display: block; }
   
   /* Grid Layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
   
@@ -170,7 +171,7 @@
 
   @media(max-width: 900px) {
     .nav-links { display: none; }
-    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
     .hero { padding: 120px 20px 60px; }
     .hero h1 { font-size: 36px; }
     
@@ -314,37 +315,15 @@
   </div>
 </section>
 
-<!-- Results & Testimonials -->
+<!-- Results -->
 <section class="section" style="background: rgba(255,255,255,0.02);">
-  <div class="wrap">
-    <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
-      
-      <!-- Results -->
-      <div>
-        <span class="section-subtitle" style="text-align: right;">نتائجنا</span>
-        <h2 class="section-title" style="text-align: right; margin-bottom: 30px;">📸 لقطات من نتائج حملاتنا</h2>
-        <div class="image-placeholder">[أضف صورة لنتائج داشبورد الـ ROAS هنا]</div>
-        <div class="image-placeholder">[أضف صورة لنتائج المبيعات هنا]</div>
-      </div>
-
-      <!-- Testimonials -->
-      <div>
-        <span class="section-subtitle" style="text-align: right;">ماذا يقول عملاؤنا ؟</span>
-        <h2 class="section-title" style="text-align: right; margin-bottom: 30px;">🎙 شهادات من عملائنا</h2>
-        
-        <div class="audio-placeholder">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px;">▶</div>
-          <div style="flex: 1; height: 4px; background: var(--border); border-radius: 2px;"><div style="width: 30%; height: 100%; background: var(--primary); border-radius: 2px;"></div></div>
-          <div style="color: var(--muted); font-size: 14px;">0:45</div>
-        </div>
-        
-        <div class="audio-placeholder">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px;">▶</div>
-          <div style="flex: 1; height: 4px; background: var(--border); border-radius: 2px;"><div style="width: 50%; height: 100%; background: var(--primary); border-radius: 2px;"></div></div>
-          <div style="color: var(--muted); font-size: 14px;">1:12</div>
-        </div>
-        
-      </div>
+  <div class="wrap text-center" style="text-align: center;">
+    <span class="section-subtitle">نتائجنا</span>
+    <h2 class="section-title" style="margin-bottom: 50px;">📸 لقطات من نتائج حملاتنا</h2>
+    
+    <div class="grid-2">
+      <div class="image-placeholder" style="margin-bottom: 0;">[أضف صورة لنتائج داشبورد الـ ROAS هنا]</div>
+      <div class="image-placeholder" style="margin-bottom: 0;">[أضف صورة لنتائج المبيعات هنا]</div>
     </div>
   </div>
 </section>
