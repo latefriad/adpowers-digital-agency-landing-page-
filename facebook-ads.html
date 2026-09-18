@@ -1,408 +1,387 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="logo.png">
-<title>Facebook Ads — Adpowers Digital</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Meta Ads Media Buying — Adpowers Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#050B14;
-    --bg-soft:#0B1220;
-    --surface:#111C2E;
-    --surface-hover:#1A2942;
-    --border:#1E293B;
-    --text:#F8FAFC;
-    --muted:#94A3B8;
-    --muted-2:#64748B;
-    --blue:#2563EB;
-    --cyan:#22D3EE;
+  :root {
+    --bg: #030712;
+    --surface: #0B1120;
+    --border: #1E293B;
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --primary: #22D3EE;
+    --primary-glow: rgba(34, 211, 238, 0.3);
+    --gold: #FBBF24;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', 'Inter', sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
   }
-  a{color:inherit;text-decoration:none;}
   
-  /* Header */
-  header{
-    padding:24px 40px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid var(--border);
-    position: relative;
-    z-index: 10;
-  }
-  .logo{font-weight:700; font-size:18px; display:flex; align-items:center; gap:10px;}
-  .logo-img{width:32px;height:32px;border-radius:8px;}
-  .back-btn{
-    font-size:14px; font-weight:500; color:var(--muted);
-    transition:color .2s;
-  }
-  .back-btn:hover{color:var(--text);}
-
-  /* Main Form Area */
-  .container{
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 20px;
-    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(37,99,235,0.1), transparent), var(--bg);
-    position: relative;
-  }
+  a { text-decoration: none; color: inherit; }
   
-  .form-wrapper{
-    width: 100%;
-    max-width: 640px;
-    position: relative;
+  /* Navbar */
+  .navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    padding: 16px 0;
   }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .navbar .wrap { display: flex; justify-content: space-between; align-items: center; flex-direction: row-reverse; }
+  .logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 20px; display: flex; align-items: center; gap: 12px; }
+  .nav-links { display: flex; gap: 32px; align-items: center; flex-direction: row-reverse; }
+  .nav-links a { font-size: 15px; font-weight: 500; color: var(--text); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--primary); }
+  .btn-nav { background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border); }
   
-  /* Progress Bar */
-  .progress-container {
-    width: 100%;
-    height: 4px;
-    background: var(--surface);
-    border-radius: 4px;
-    margin-bottom: 40px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--blue), var(--cyan));
-    width: 25%; /* Starts at step 1 */
-    transition: width 0.4s ease;
-  }
-
-  /* Steps */
-  .step {
-    display: none;
-    animation: fadeIn 0.4s ease forwards;
-  }
-  .step.active {
-    display: block;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  h1{font-size:28px; font-weight:700; margin-bottom:12px; letter-spacing:-0.02em; text-align: center;}
-  p.desc{color:var(--muted); font-size:15px; margin-bottom:32px; line-height:1.6; text-align: center;}
-
-  /* Selectable Cards (Radio alternative) */
-  .options-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  @media(min-width: 500px){
-    .options-grid.two-cols {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  .option-card {
-    background: var(--surface);
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* Hero */
+  .hero {
+    padding: 180px 0 100px;
     text-align: center;
-    gap: 12px;
+    background: radial-gradient(circle at center 0%, var(--primary-glow), transparent 60%);
   }
-  .option-card:hover {
-    border-color: rgba(34,211,238,0.4);
-    background: var(--surface-hover);
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 99px; background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2);
+    color: var(--primary); font-size: 14px; font-weight: 600; margin-bottom: 24px;
   }
-  .option-card.selected {
-    border-color: var(--cyan);
-    background: rgba(34,211,238,0.05);
-    box-shadow: 0 0 20px rgba(34,211,238,0.1);
+  .hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.2; }
+  .hero p { font-size: 20px; color: var(--muted); max-width: 700px; margin: 0 auto 40px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--primary); color: #000; font-weight: 700; font-size: 16px;
+    padding: 16px 32px; border-radius: 12px; transition: transform 0.2s; box-shadow: 0 10px 20px var(--primary-glow);
   }
-  .option-icon {
-    font-size: 28px;
-  }
-  .option-title {
-    font-weight: 600;
-    font-size: 16px;
-  }
+  .btn-primary:hover { transform: translateY(-2px); }
 
-  /* Standard Inputs */
-  .form-group{margin-bottom:24px;}
-  label{
-    display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
-    letter-spacing:0.1em; text-transform:uppercase; color:var(--muted-2); margin-bottom:8px;
-  }
-  input, textarea{
-    width: 100%;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    color: var(--text);
-    transition: all .2s;
-  }
-  input:focus, textarea:focus{
-    outline: none;
-    border-color: var(--cyan);
-    box-shadow: 0 0 0 3px rgba(34,211,238,0.1);
-  }
-
-  /* Buttons */
-  .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 24px;
-  }
-  .btn {
-    padding: 16px 28px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all .2s;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .btn-next {
-    background: var(--blue);
-    color: #FFF;
-    flex: 1;
-  }
-  .btn-next:hover:not(:disabled) {
-    background: var(--cyan);
-    box-shadow: 0 0 30px rgba(34,211,238,0.25);
-  }
-  .btn-next:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  .btn-prev {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-  }
-  .btn-prev:hover {
-    background: var(--surface);
-    color: var(--text);
-  }
+  /* Section Styles */
+  .section { padding: 80px 0; border-top: 1px solid var(--border); }
+  .section-title { font-size: 36px; font-weight: 800; margin-bottom: 50px; text-align: center; color: #FFF; }
+  .section-subtitle { text-align: center; color: var(--primary); font-weight: 700; margin-bottom: 12px; display: block; }
   
-  /* Hidden inputs to store card selection */
-  input[type="radio"] {
-    display: none;
+  /* Grid Layouts */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+  .card-icon { font-size: 40px; margin-bottom: 20px; }
+  .card h3 { font-size: 22px; margin-bottom: 16px; color: #FFF; }
+  .card p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+  
+  /* Steps / How we work */
+  .steps-container { display: flex; flex-direction: column; gap: 24px; max-width: 800px; margin: 0 auto; }
+  .step-row { display: flex; align-items: center; gap: 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 24px; border-radius: 16px; }
+  .step-number { width: 60px; height: 60px; border-radius: 50%; background: rgba(34,211,238,0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; flex-shrink: 0; }
+  .step-content h3 { font-size: 20px; margin-bottom: 8px; color: #FFF; }
+  .step-content p { color: var(--muted); font-size: 15px; }
+
+  /* Pricing Cards */
+  .pricing-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; text-align: center;
+    display: flex; flex-direction: column;
+  }
+  .pricing-card.popular {
+    border-color: var(--gold);
+    background: linear-gradient(180deg, rgba(251,191,36,0.05) 0%, transparent 100%);
+    position: relative;
+  }
+  .popular-badge {
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #000; font-size: 12px; font-weight: 800; padding: 6px 16px; border-radius: 99px;
+  }
+  .pricing-card h3 { font-size: 24px; color: #FFF; margin-bottom: 16px; }
+  .ad-spend { color: var(--primary); font-size: 18px; font-weight: 700; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .pricing-card ul { list-style: none; text-align: right; margin-bottom: 32px; flex: 1; }
+  .pricing-card ul li { margin-bottom: 16px; font-size: 15px; color: var(--muted); display: flex; align-items: flex-start; gap: 12px; }
+  .pricing-card ul li::before { content: '✓'; color: var(--primary); font-weight: bold; }
+  
+  .btn-outline {
+    display: block; width: 100%; text-align: center; padding: 14px; border-radius: 12px;
+    border: 1px solid var(--border); color: #FFF; font-weight: 600; transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+  /* Screenshots & Testimonials */
+  .image-placeholder { width: 100%; height: 250px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .audio-placeholder { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 99px; display: flex; align-items: center; gap: 16px; border: 1px solid var(--border); margin-bottom: 16px; }
+
+  @media(max-width: 900px) {
+    .nav-links { display: none; }
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .hero { padding: 120px 20px 60px; }
+    .hero h1 { font-size: 36px; }
+    .step-row { flex-direction: column; text-align: center; }
+    .pricing-card { padding: 30px 20px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <a href="index.html" class="logo"><img src="logo.png" alt="Logo" class="logo-img"> Adpowers</a>
-  <a href="index.html" class="back-btn">← Retour au site</a>
-</header>
-
-<div class="container">
-  <div class="form-wrapper">
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
+<nav class="navbar">
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      Adpowers <img src="logo.png" alt="Adpowers" style="width: 32px; border-radius: 8px;">
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#services">Services</a>
+      <a href="https://wa.me/213779411291" target="_blank" class="btn-nav">احجز استشارتك</a>
     </div>
-    
-    <form id="multiStepForm" action="#" method="POST">
-      
-      <!-- STEP 1 -->
-      <div class="step active" id="step1">
-        <h1>Quel est votre budget publicitaire mensuel ?</h1>
-        <p class="desc">Pour vous conseiller la meilleure stratégie, nous devons connaître votre capacité d'investissement sur Meta.</p>
-        
-        <div class="options-grid two-cols">
-          <label class="option-card">
-            <input type="radio" name="budget" value="< 50k" required>
-            <span class="option-icon">🌱</span>
-            <span class="option-title">Moins de 50 000 DA</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="budget" value="50k - 150k">
-            <span class="option-icon">📈</span>
-            <span class="option-title">50 000 - 150 000 DA</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="budget" value="150k - 500k">
-            <span class="option-icon">🚀</span>
-            <span class="option-title">150 000 - 500 000 DA</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="budget" value="> 500k">
-            <span class="option-icon">🔥</span>
-            <span class="option-title">Plus de 500 000 DA</span>
-          </label>
-        </div>
-        
-        <div class="navigation-buttons">
-          <button type="button" class="btn btn-next" onclick="nextStep(1)">Continuer →</button>
-        </div>
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="step" id="step2">
-        <h1>Quel est votre objectif principal ?</h1>
-        <p class="desc">Que souhaitez-vous accomplir avec ces campagnes dans les 30 prochains jours ?</p>
-        
-        <div class="options-grid">
-          <label class="option-card">
-            <input type="radio" name="objectif" value="Ventes E-commerce" required>
-            <span class="option-title">🛍️ Augmenter mes ventes E-commerce</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="objectif" value="Génération de Leads">
-            <span class="option-title">📝 Générer des contacts qualifiés (Leads)</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="objectif" value="Visibilité / Branding">
-            <span class="option-title">👁️ Développer la notoriété de ma marque</span>
-          </label>
-        </div>
-        
-        <div class="navigation-buttons">
-          <button type="button" class="btn btn-prev" onclick="prevStep(2)">← Retour</button>
-          <button type="button" class="btn btn-next" onclick="nextStep(2)">Continuer →</button>
-        </div>
-      </div>
-
-      <!-- STEP 3 -->
-      <div class="step" id="step3">
-        <h1>Avez-vous déjà un compte publicitaire actif ?</h1>
-        <p class="desc">Cela nous aide à savoir si nous devons repartir de zéro ou auditer un existant.</p>
-        
-        <div class="options-grid two-cols">
-          <label class="option-card">
-            <input type="radio" name="compte_actif" value="Oui" required>
-            <span class="option-icon">✅</span>
-            <span class="option-title">Oui, je fais déjà des pubs</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="compte_actif" value="Non">
-            <span class="option-icon">❌</span>
-            <span class="option-title">Non, je débute</span>
-          </label>
-        </div>
-        
-        <div class="navigation-buttons">
-          <button type="button" class="btn btn-prev" onclick="prevStep(3)">← Retour</button>
-          <button type="button" class="btn btn-next" onclick="nextStep(3)">Continuer →</button>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="step" id="step4">
-        <h1>Dernière étape !</h1>
-        <p class="desc">Laissez-nous vos coordonnées pour que notre expert vous recontacte avec un plan d'action.</p>
-        
-        <div class="form-group">
-          <label>Votre nom complet</label>
-          <input type="text" id="fullname" placeholder="Ex: Riyad Mahrez" required>
-        </div>
-        <div class="form-group">
-          <label>Numéro WhatsApp</label>
-          <input type="tel" id="whatsapp" placeholder="05 55 00 00 00" required>
-        </div>
-        
-        <div class="navigation-buttons">
-          <button type="button" class="btn btn-prev" onclick="prevStep(4)">← Retour</button>
-          <button type="submit" class="btn btn-next" id="submitBtn">Réserver mon appel d'audit 🚀</button>
-        </div>
-      </div>
-
-    </form>
   </div>
-</div>
+</nav>
 
-<script>
-  let currentStep = 1;
-  const totalSteps = 4;
+<section class="hero">
+  <div class="wrap">
+    <div class="badge">🚀 Adpowers Media Buying</div>
+    <h1>ضخّم أرباحك وتوسع بثقة</h1>
+    <p>نحن ندير حملاتك الإعلانية على منصات التواصل الاجتماعي باحترافية لنحول ميزانيتك الإعلانية إلى مبيعات ملموسة ونمو مستدام.</p>
+    <a href="https://wa.me/213779411291" target="_blank" class="btn-primary">
+      تحدث معنا الآن
+    </a>
+  </div>
+</section>
 
-  // Handle visual selection for cards
-  document.querySelectorAll('.option-card input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-      // Remove selected class from all cards in the same group
-      const name = this.getAttribute('name');
-      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
-        r.parentElement.classList.remove('selected');
-      });
-      // Add selected class to the checked one
-      if(this.checked) {
-        this.parentElement.classList.add('selected');
-      }
-    });
-  });
+<!-- Who is this for -->
+<section class="section" style="background: rgba(255,255,255,0.02);">
+  <div class="wrap">
+    <span class="section-subtitle">من هم عملاؤنا ؟</span>
+    <h2 class="section-title">لمن صُممت هذه الخدمة؟</h2>
+    <div class="grid-3">
+      <div class="card" style="text-align: center;">
+        <div class="card-icon">🛒</div>
+        <h3>المتاجر الإلكترونية</h3>
+        <p>متاجر الدروبشيبينغ أو الإيكوميرس المحلي التي تسعى لمضاعفة مبيعاتها وزيادة الـ ROAS بشكل استراتيجي.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div class="card-icon">🏢</div>
+        <h3>الشركات</h3>
+        <p>الشركات ومزودي الخدمات B2B/B2C الباحثين عن جلب عملاء محتملين (Leads) ذوي جودة عالية.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div class="card-icon">✨</div>
+        <h3>العلامات التجارية</h3>
+        <p>البراندات التي ترغب في تعزيز تواجدها الرقمي، زيادة الوعي بالعلامة، والهيمنة على السوق.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  function updateProgress() {
-    const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
-  }
+<!-- Our Services inside Media Buying -->
+<section class="section">
+  <div class="wrap">
+    <span class="section-subtitle">خدماتنا</span>
+    <h2 class="section-title">ماذا يشمل فريق الـ Media Buying؟</h2>
+    <div class="grid-4">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>الاستشارة والمتابعة التسويقية</h3>
+        <p>نقوم بدراسة متجرك وعروضك، ونقدم توصيات دورية لتحسين مسار المبيعات بالكامل.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>إطلاق الحملات الإعلانية</h3>
+        <p>تصميم وإطلاق حملات إعلانية متقدمة على Meta، TikTok، وغيرها بناءً على أهدافك المحددة.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>تقديم التقارير والتحليلات</h3>
+        <p>تتبع دقيق للأداء والـ KPI's وتقديم تقارير شفافة ومبسطة توضح مدى نجاح الحملات.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚀</div>
+        <h3>استراتيجيات التحسين والتوسع</h3>
+        <p>اختبار الكريتيفز باستمرار والانتقال للـ Scaling لرفع الميزانيات بأمان عند إيجاد الإعلانات الرابحة.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  function validateStep(step) {
-    const stepElement = document.getElementById('step' + step);
+<!-- How we work -->
+<section class="section" style="background: rgba(255,255,255,0.02);">
+  <div class="wrap">
+    <span class="section-subtitle">طريقة العمل</span>
+    <h2 class="section-title">كيف نعمل ؟</h2>
+    <div class="steps-container">
+      <div class="step-row">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>استشارة تسويقية وتحليل</h3>
+          <p>نجتمع معك لفهم منتجك، جمهورك المستهدف، وأهدافك البيعية بدقة.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>نطوّر استراتيجية إعلانية</h3>
+          <p>نبني هيكل حملات متكامل (Testing, Scaling, Retargeting) ونحدد الميزانيات المثلى.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>إطلاق الحملات</h3>
+          <p>نبدأ في ضخ الإعلانات وإطلاق مرحلة الـ Testing لاختبار المنتجات والإبداعات الفنية بأقل المخاطر.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>متابعة وتحسين (Optimization)</h3>
+          <p>مراقبة يومية للنتائج، إيقاف الإعلانات الخاسرة، وضخ الميزانية في الإعلانات المربحة لمضاعفة النتائج.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Platforms -->
+<section class="section">
+  <div class="wrap text-center" style="text-align: center;">
+    <h2 class="section-title">المنصات التي نعمل عليها</h2>
+    <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px;">
+      <div style="font-size: 32px; font-weight: 800; color: #FFF;">Facebook Ads</div>
+      <div style="font-size: 32px; font-weight: 800; color: #FFF;">Instagram</div>
+      <div style="font-size: 32px; font-weight: 800; color: #FFF;">TikTok Ads</div>
+      <div style="font-size: 32px; font-weight: 800; color: #FFF;">Snapchat</div>
+    </div>
+  </div>
+</section>
+
+<!-- Results & Testimonials -->
+<section class="section" style="background: rgba(255,255,255,0.02);">
+  <div class="wrap">
+    <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+      
+      <!-- Results -->
+      <div>
+        <span class="section-subtitle" style="text-align: right;">نتائجنا</span>
+        <h2 class="section-title" style="text-align: right; margin-bottom: 30px;">📸 لقطات من نتائج حملاتنا</h2>
+        <div class="image-placeholder">[أضف صورة لنتائج داشبورد الـ ROAS هنا]</div>
+        <div class="image-placeholder">[أضف صورة لنتائج المبيعات هنا]</div>
+      </div>
+
+      <!-- Testimonials -->
+      <div>
+        <span class="section-subtitle" style="text-align: right;">ماذا يقول عملاؤنا ؟</span>
+        <h2 class="section-title" style="text-align: right; margin-bottom: 30px;">🎙 شهادات من عملائنا</h2>
+        
+        <div class="audio-placeholder">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px;">▶</div>
+          <div style="flex: 1; height: 4px; background: var(--border); border-radius: 2px;"><div style="width: 30%; height: 100%; background: var(--primary); border-radius: 2px;"></div></div>
+          <div style="color: var(--muted); font-size: 14px;">0:45</div>
+        </div>
+        
+        <div class="audio-placeholder">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px;">▶</div>
+          <div style="flex: 1; height: 4px; background: var(--border); border-radius: 2px;"><div style="width: 50%; height: 100%; background: var(--primary); border-radius: 2px;"></div></div>
+          <div style="color: var(--muted); font-size: 14px;">1:12</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing / Subscriptions -->
+<section class="section">
+  <div class="wrap">
+    <span class="section-subtitle">الأسعار والاشتراكات</span>
+    <h2 class="section-title">اختر الباقة المناسبة لحجم عملك</h2>
+    <p style="text-align: center; color: var(--muted); margin-bottom: 60px;">الأسعار أدناه تمثل تكلفة إدارة الحملات (Service Fee) وتعتمد على حجم ميزانيتك الإعلانية الشهرية.</p>
     
-    // Check radios
-    const radioGroups = [...new Set([...stepElement.querySelectorAll('input[type="radio"]')].map(r => r.name))];
-    for (const group of radioGroups) {
-      const isChecked = stepElement.querySelector(`input[name="${group}"]:checked`);
-      if (!isChecked) {
-        alert("Veuillez sélectionner une option pour continuer.");
-        return false;
-      }
-    }
-    
-    // Check inputs (for step 4)
-    const inputs = stepElement.querySelectorAll('input[type="text"], input[type="tel"]');
-    for (const input of inputs) {
-      if (!input.value.trim()) {
-        alert("Veuillez remplir tous les champs.");
-        return false;
-      }
-    }
-    
-    return true;
-  }
+    <div class="grid-4">
+      
+      <!-- Basic -->
+      <div class="pricing-card">
+        <h3>الباقة الأساسية</h3>
+        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أقل من 500$ شهرياً</span></div>
+        <ul>
+          <li>إدارة حملات Meta / TikTok</li>
+          <li>استراتيجية Testing</li>
+          <li>تقرير أداء شهري</li>
+          <li>دعم عبر WhatsApp</li>
+        </ul>
+        <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
+      </div>
 
-  function nextStep(step) {
-    if (!validateStep(step)) return;
-    
-    document.getElementById('step' + step).classList.remove('active');
-    currentStep++;
-    document.getElementById('step' + currentStep).classList.add('active');
-    updateProgress();
-  }
+      <!-- Gold -->
+      <div class="pricing-card popular">
+        <div class="popular-badge">الأكثر طلباً</div>
+        <h3>الباقة الذهبية</h3>
+        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">500$ إلى 1000$ شهرياً</span></div>
+        <ul>
+          <li>إدارة حملات متقدمة</li>
+          <li>استراتيجية Retargeting</li>
+          <li>نصائح لتحسين الـ Offer</li>
+          <li>تقرير أداء نصف شهري</li>
+          <li>أولوية في الدعم</li>
+        </ul>
+        <a href="https://wa.me/213779411291" class="btn-primary" style="padding: 14px; width: 100%;">اشترك الآن</a>
+      </div>
 
-  function prevStep(step) {
-    document.getElementById('step' + step).classList.remove('active');
-    currentStep--;
-    document.getElementById('step' + currentStep).classList.add('active');
-    updateProgress();
-  }
-</script>
+      <!-- Premium -->
+      <div class="pricing-card">
+        <h3>الباقة المميزة</h3>
+        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">1000$ إلى 2000$ شهرياً</span></div>
+        <ul>
+          <li>إدارة حملات Scaling</li>
+          <li>هيكلة الحساب الإعلاني كاملة</li>
+          <li>تحليل عميق للمنافسين</li>
+          <li>تقارير أسبوعية مفصلة</li>
+          <li>اجتماع استراتيجي شهري</li>
+        </ul>
+        <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
+      </div>
+      
+      <!-- Custom / Scaling -->
+      <div class="pricing-card">
+        <h3>باقة التوسع</h3>
+        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أكثر من 2000$ شهرياً</span></div>
+        <ul>
+          <li>إدارة فريق كامل لحسابك</li>
+          <li>توسع على منصات متعددة</li>
+          <li>استراتيجيات Custom Audiences</li>
+          <li>تقارير مخصصة وقتما شئت</li>
+          <li>اجتماعات دورية مفتوحة</li>
+        </ul>
+        <a href="https://wa.me/213779411291" class="btn-outline">تواصل معنا</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background: radial-gradient(circle at center 100%, var(--primary-glow), transparent 70%);">
+  <div class="wrap text-center" style="text-align: center;">
+    <h2 class="section-title" style="margin-bottom: 24px;">تواصل معنا الآن</h2>
+    <p style="color: var(--muted); font-size: 18px; margin-bottom: 40px;">تحدث معنا واحصل على استشارة أولية مجانية لمتجرك الإلكتروني أو لشركتك.</p>
+    <a href="https://wa.me/213779411291" target="_blank" class="btn-primary" style="font-size: 18px; padding: 20px 40px;">
+      احجز استشارتك المجانية
+    </a>
+  </div>
+</section>
+
+<footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted);">
+  <div class="wrap">
+    <img src="logo.png" alt="Adpowers" style="width: 40px; border-radius: 8px; margin-bottom: 16px;">
+    <p>© 2026 Adpowers Digital. Tous droits réservés.</p>
+  </div>
+</footer>
 
 </body>
 </html>
