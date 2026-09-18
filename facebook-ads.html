@@ -119,6 +119,19 @@
   .image-placeholder { width: 100%; height: 250px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; margin-bottom: 24px; }
   .audio-placeholder { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 99px; display: flex; align-items: center; gap: 16px; border: 1px solid var(--border); margin-bottom: 16px; }
 
+  /* Pricing Tabs */
+  .pricing-tabs { display: flex; justify-content: center; gap: 16px; margin-bottom: 40px; }
+  .tab-btn {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted);
+    padding: 14px 32px; border-radius: 99px; font-size: 18px; font-weight: 700; font-family: 'Cairo', sans-serif;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .tab-btn:hover { background: rgba(255,255,255,0.1); }
+  .tab-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
+  .pricing-content { display: none; }
+  .pricing-content.active { display: block; animation: fadeIn 0.4s; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
   @media(max-width: 900px) {
     .nav-links { display: none; }
     .grid-3, .grid-4 { grid-template-columns: 1fr; }
@@ -300,68 +313,131 @@
 <section class="section">
   <div class="wrap">
     <span class="section-subtitle">الأسعار والاشتراكات</span>
-    <h2 class="section-title">اختر الباقة المناسبة لحجم عملك</h2>
-    <p style="text-align: center; color: var(--muted); margin-bottom: 60px;">الأسعار أدناه تمثل تكلفة إدارة الحملات (Service Fee) وتعتمد على حجم ميزانيتك الإعلانية الشهرية.</p>
+    <h2 class="section-title">اختر الباقة التي تناسب حجم متجرك وطموحاتك</h2>
+    <p style="text-align: center; color: var(--muted); margin-bottom: 40px;">الأسعار أدناه تمثل تكلفة إدارة الحملات (Service Fee) وتعتمد على حجم ميزانيتك الإعلانية الشهرية.</p>
     
-    <div class="grid-4">
-      
-      <!-- Basic -->
-      <div class="pricing-card">
-        <h3>الباقة الأساسية</h3>
-        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أقل من 500$ شهرياً</span></div>
-        <ul>
-          <li>إدارة حملات Meta / TikTok</li>
-          <li>استراتيجية Testing</li>
-          <li>تقرير أداء شهري</li>
-          <li>دعم عبر WhatsApp</li>
-        </ul>
-        <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
-      </div>
-
-      <!-- Gold -->
-      <div class="pricing-card popular">
-        <div class="popular-badge">الأكثر طلباً</div>
-        <h3>الباقة الذهبية</h3>
-        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">500$ إلى 1000$ شهرياً</span></div>
-        <ul>
-          <li>إدارة حملات متقدمة</li>
-          <li>استراتيجية Retargeting</li>
-          <li>نصائح لتحسين الـ Offer</li>
-          <li>تقرير أداء نصف شهري</li>
-          <li>أولوية في الدعم</li>
-        </ul>
-        <a href="https://wa.me/213779411291" class="btn-primary" style="padding: 14px; width: 100%;">اشترك الآن</a>
-      </div>
-
-      <!-- Premium -->
-      <div class="pricing-card">
-        <h3>الباقة المميزة</h3>
-        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">1000$ إلى 2000$ شهرياً</span></div>
-        <ul>
-          <li>إدارة حملات Scaling</li>
-          <li>هيكلة الحساب الإعلاني كاملة</li>
-          <li>تحليل عميق للمنافسين</li>
-          <li>تقارير أسبوعية مفصلة</li>
-          <li>اجتماع استراتيجي شهري</li>
-        </ul>
-        <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
-      </div>
-      
-      <!-- Custom / Scaling -->
-      <div class="pricing-card">
-        <h3>باقة التوسع</h3>
-        <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أكثر من 2000$ شهرياً</span></div>
-        <ul>
-          <li>إدارة فريق كامل لحسابك</li>
-          <li>توسع على منصات متعددة</li>
-          <li>استراتيجيات Custom Audiences</li>
-          <li>تقارير مخصصة وقتما شئت</li>
-          <li>اجتماعات دورية مفتوحة</li>
-        </ul>
-        <a href="https://wa.me/213779411291" class="btn-outline">تواصل معنا</a>
-      </div>
-
+    <!-- Tabs -->
+    <div class="pricing-tabs">
+      <button class="tab-btn active" onclick="switchPricing('general')">🛍️ Général Product</button>
+      <button class="tab-btn" onclick="switchPricing('b2b')">🏢 B2B / Brand</button>
     </div>
+    
+    <!-- Tab Content: General -->
+    <div id="pricing-general" class="pricing-content active">
+      <div class="grid-4">
+        <!-- Basic -->
+        <div class="pricing-card">
+          <h3>الباقة الأساسية</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أقل من 500$ شهرياً</span></div>
+          <ul>
+            <li>إدارة حملات Meta / TikTok</li>
+            <li>استراتيجية Testing</li>
+            <li>تقرير أداء شهري</li>
+            <li>دعم عبر WhatsApp</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
+        </div>
+        <!-- Gold -->
+        <div class="pricing-card popular">
+          <div class="popular-badge">الأكثر طلباً</div>
+          <h3>الباقة الذهبية</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">500$ إلى 1000$ شهرياً</span></div>
+          <ul>
+            <li>إدارة حملات متقدمة</li>
+            <li>استراتيجية Retargeting</li>
+            <li>نصائح لتحسين الـ Offer</li>
+            <li>تقرير أداء نصف شهري</li>
+            <li>أولوية في الدعم</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-primary" style="padding: 14px; width: 100%;">اشترك الآن</a>
+        </div>
+        <!-- Premium -->
+        <div class="pricing-card">
+          <h3>الباقة المميزة</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">1000$ إلى 2000$ شهرياً</span></div>
+          <ul>
+            <li>إدارة حملات Scaling</li>
+            <li>هيكلة الحساب الإعلاني كاملة</li>
+            <li>تحليل عميق للمنافسين</li>
+            <li>تقارير أسبوعية مفصلة</li>
+            <li>اجتماع استراتيجي شهري</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
+        </div>
+        <!-- Custom / Scaling -->
+        <div class="pricing-card">
+          <h3>باقة التوسع</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أكثر من 2000$ شهرياً</span></div>
+          <ul>
+            <li>إدارة فريق كامل لحسابك</li>
+            <li>توسع على منصات متعددة</li>
+            <li>استراتيجيات Custom Audiences</li>
+            <li>تقارير مخصصة وقتما شئت</li>
+            <li>اجتماعات دورية مفتوحة</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-outline">تواصل معنا</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content: B2B -->
+    <div id="pricing-b2b" class="pricing-content">
+      <div class="grid-4">
+        <!-- Basic -->
+        <div class="pricing-card">
+          <h3>باقة الانطلاق (B2B)</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أقل من 500$ شهرياً</span></div>
+          <ul>
+            <li>إدارة حملات Lead Gen</li>
+            <li>استراتيجية استهداف الشركات</li>
+            <li>تقرير أداء شهري</li>
+            <li>دعم عبر WhatsApp</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
+        </div>
+        <!-- Gold -->
+        <div class="pricing-card popular">
+          <div class="popular-badge">الأكثر طلباً</div>
+          <h3>باقة النمو (Brand)</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">500$ إلى 1000$ شهرياً</span></div>
+          <ul>
+            <li>إدارة حملات متقدمة للوعي</li>
+            <li>استراتيجية Retargeting</li>
+            <li>نصائح لصناعة المحتوى</li>
+            <li>تقرير أداء نصف شهري</li>
+            <li>أولوية في الدعم</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-primary" style="padding: 14px; width: 100%;">اشترك الآن</a>
+        </div>
+        <!-- Premium -->
+        <div class="pricing-card">
+          <h3>الباقة المتقدمة</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">1000$ إلى 2000$ شهرياً</span></div>
+          <ul>
+            <li>إدارة حملات B2B Scaling</li>
+            <li>تكامل مع أنظمة الـ CRM</li>
+            <li>تحليل عميق للسوق والمنافسين</li>
+            <li>تقارير أسبوعية مفصلة</li>
+            <li>اجتماع استراتيجي شهري</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-outline">اشترك الآن</a>
+        </div>
+        <!-- Custom / Scaling -->
+        <div class="pricing-card">
+          <h3>باقة الهيمنة</h3>
+          <div class="ad-spend">ميزانية إعلانية:<br><span style="color: #FFF; font-size: 22px;">أكثر من 2000$ شهرياً</span></div>
+          <ul>
+            <li>فريق تسويق كامل لشركتك</li>
+            <li>إدارة حملات على جميع المنصات</li>
+            <li>Lead Nurturing Campaigns</li>
+            <li>تقارير مخصصة وقتما شئت</li>
+            <li>اجتماعات دورية مفتوحة</li>
+          </ul>
+          <a href="https://wa.me/213779411291" class="btn-outline">تواصل معنا</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -383,5 +459,19 @@
   </div>
 </footer>
 
+<script>
+  function switchPricing(tab) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.pricing-content').forEach(content => content.classList.remove('active'));
+    
+    if(tab === 'general') {
+      document.querySelectorAll('.tab-btn')[0].classList.add('active');
+      document.getElementById('pricing-general').classList.add('active');
+    } else {
+      document.querySelectorAll('.tab-btn')[1].classList.add('active');
+      document.getElementById('pricing-b2b').classList.add('active');
+    }
+  }
+</script>
 </body>
 </html>
