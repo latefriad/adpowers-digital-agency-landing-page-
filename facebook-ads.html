@@ -83,11 +83,17 @@
   .card p { color: var(--muted); font-size: 15px; line-height: 1.7; }
   
   /* Steps / How we work */
-  .steps-container { display: flex; flex-direction: column; gap: 24px; max-width: 800px; margin: 0 auto; }
-  .step-row { display: flex; align-items: center; gap: 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 24px; border-radius: 16px; }
-  .step-number { width: 60px; height: 60px; border-radius: 50%; background: rgba(34,211,238,0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; flex-shrink: 0; }
-  .step-content h3 { font-size: 20px; margin-bottom: 8px; color: #FFF; }
-  .step-content p { color: var(--muted); font-size: 15px; }
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; margin-top: 40px; }
+  .timeline::before { content: ''; position: absolute; top: 35px; left: 10%; right: 10%; height: 2px; background: rgba(34,211,238,0.2); z-index: 0; }
+  .timeline-step { text-align: center; position: relative; z-index: 1; }
+  .timeline-icon {
+    width: 70px; height: 70px; margin: 0 auto 24px;
+    background: var(--bg); border: 2px solid var(--primary); color: var(--primary);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 800; box-shadow: 0 0 20px rgba(34,211,238,0.2);
+  }
+  .timeline-step h3 { color: #FFF; font-size: 20px; margin-bottom: 12px; }
+  .timeline-step p { color: var(--muted); font-size: 15px; }
 
   /* Pricing Cards */
   .pricing-card {
@@ -137,7 +143,11 @@
     .grid-3, .grid-4 { grid-template-columns: 1fr; }
     .hero { padding: 120px 20px 60px; }
     .hero h1 { font-size: 36px; }
-    .step-row { flex-direction: column; text-align: center; }
+    
+    .timeline { grid-template-columns: 1fr; gap: 40px; }
+    .timeline::before { top: 0; bottom: 0; left: 50%; right: auto; width: 2px; height: 100%; transform: translateX(-50%); }
+    .timeline-icon { margin-bottom: 16px; }
+    
     .pricing-card { padding: 30px 20px; }
   }
 </style>
@@ -228,36 +238,30 @@
   <div class="wrap">
     <span class="section-subtitle">طريقة العمل</span>
     <h2 class="section-title">كيف نعمل ؟</h2>
-    <div class="steps-container">
-      <div class="step-row">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h3>استشارة تسويقية وتحليل</h3>
-          <p>نجتمع معك لفهم منتجك، جمهورك المستهدف، وأهدافك البيعية بدقة.</p>
-        </div>
+    
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-icon">1</div>
+        <h3>استشارة تسويقية</h3>
+        <p>نجتمع معك لفهم منتجك، جمهورك المستهدف، وأهدافك البيعية بدقة.</p>
       </div>
-      <div class="step-row">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h3>نطوّر استراتيجية إعلانية</h3>
-          <p>نبني هيكل حملات متكامل (Testing, Scaling, Retargeting) ونحدد الميزانيات المثلى.</p>
-        </div>
+      <div class="timeline-step">
+        <div class="timeline-icon">2</div>
+        <h3>نطوّر استراتيجية إعلانية</h3>
+        <p>نبني هيكل حملات متكامل ونحدد الميزانيات والخطط المثلى.</p>
       </div>
-      <div class="step-row">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h3>إطلاق الحملات</h3>
-          <p>نبدأ في ضخ الإعلانات وإطلاق مرحلة الـ Testing لاختبار المنتجات والإبداعات الفنية بأقل المخاطر.</p>
-        </div>
+      <div class="timeline-step">
+        <div class="timeline-icon">3</div>
+        <h3>إطلاق الحملات</h3>
+        <p>نبدأ مرحلة الـ Testing لاختبار المنتجات والإبداعات الفنية بأقل المخاطر.</p>
       </div>
-      <div class="step-row">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <h3>متابعة وتحسين (Optimization)</h3>
-          <p>مراقبة يومية للنتائج، إيقاف الإعلانات الخاسرة، وضخ الميزانية في الإعلانات المربحة لمضاعفة النتائج.</p>
-        </div>
+      <div class="timeline-step">
+        <div class="timeline-icon">4</div>
+        <h3>متابعة وتحسين</h3>
+        <p>مراقبة يومية للنتائج، إيقاف الخاسر، والـ Scaling للإعلانات المربحة.</p>
       </div>
     </div>
+    
   </div>
 </section>
 
