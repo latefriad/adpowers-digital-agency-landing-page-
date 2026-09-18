@@ -82,7 +82,37 @@
   .card h3 { font-size: 22px; margin-bottom: 16px; color: #FFF; }
   .card p { color: var(--muted); font-size: 15px; line-height: 1.7; }
   
-  /* Steps / How we work */
+  /* Animations */
+  .fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* Target Audience Cards */
+  .target-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px 30px;
+    text-align: center; position: relative; overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .target-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34,211,238,0.1), transparent);
+    transition: all 0.6s; z-index: 0;
+  }
+  .target-card:hover {
+    transform: translateY(-15px);
+    border-color: rgba(34,211,238,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(34,211,238,0.15);
+  }
+  .target-card:hover::before { left: 100%; }
+  .target-content { position: relative; z-index: 1; }
+  
+  .target-icon {
+    font-size: 56px; margin-bottom: 24px; display: inline-block;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .target-card:hover .target-icon { transform: scale(1.2) rotate(10deg); text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+  .target-card h3 { font-size: 24px; color: #FFF; margin-bottom: 16px; font-weight: 800; }
+  .target-card p { color: var(--muted); font-size: 16px; line-height: 1.7; }
   .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; margin-top: 40px; }
   .timeline::before { content: ''; position: absolute; top: 35px; left: 10%; right: 10%; height: 2px; background: rgba(34,211,238,0.2); z-index: 0; }
   .timeline-step { text-align: center; position: relative; z-index: 1; }
@@ -179,25 +209,31 @@
 </section>
 
 <!-- Who is this for -->
-<section class="section" style="background: rgba(255,255,255,0.02);">
+<section class="section" style="background: rgba(255,255,255,0.02); overflow: hidden;">
   <div class="wrap">
     <span class="section-subtitle">من هم عملاؤنا ؟</span>
-    <h2 class="section-title">لمن صُممت هذه الخدمة؟</h2>
-    <div class="grid-3">
-      <div class="card" style="text-align: center;">
-        <div class="card-icon">🛒</div>
-        <h3>المتاجر الإلكترونية</h3>
-        <p>متاجر الدروبشيبينغ أو الإيكوميرس المحلي التي تسعى لمضاعفة مبيعاتها وزيادة الـ ROAS بشكل استراتيجي.</p>
+    <h2 class="section-title fade-in-up scroll-active">لمن صُممت هذه الخدمة؟</h2>
+    <div class="grid-3" style="margin-top: 50px;">
+      <div class="target-card fade-in-up scroll-active" style="transition-delay: 0.1s;">
+        <div class="target-content">
+          <div class="target-icon">🛒</div>
+          <h3>المتاجر الإلكترونية</h3>
+          <p>متاجر الدروبشيبينغ أو الإيكوميرس المحلي التي تسعى لمضاعفة مبيعاتها وزيادة الـ ROAS بشكل استراتيجي.</p>
+        </div>
       </div>
-      <div class="card" style="text-align: center;">
-        <div class="card-icon">🏢</div>
-        <h3>الشركات</h3>
-        <p>الشركات ومزودي الخدمات B2B/B2C الباحثين عن جلب عملاء محتملين (Leads) ذوي جودة عالية.</p>
+      <div class="target-card fade-in-up scroll-active" style="transition-delay: 0.2s;">
+        <div class="target-content">
+          <div class="target-icon">🏢</div>
+          <h3>الشركات B2B</h3>
+          <p>الشركات ومزودي الخدمات الباحثين عن جلب عملاء محتملين (Leads) ذوي جودة عالية بفضل الاستهداف الدقيق.</p>
+        </div>
       </div>
-      <div class="card" style="text-align: center;">
-        <div class="card-icon">✨</div>
-        <h3>العلامات التجارية</h3>
-        <p>البراندات التي ترغب في تعزيز تواجدها الرقمي، زيادة الوعي بالعلامة، والهيمنة على السوق.</p>
+      <div class="target-card fade-in-up scroll-active" style="transition-delay: 0.3s;">
+        <div class="target-content">
+          <div class="target-icon">✨</div>
+          <h3>العلامات التجارية</h3>
+          <p>البراندات التي ترغب في تعزيز تواجدها الرقمي، زيادة الوعي بالعلامة، والهيمنة على السوق.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -476,6 +512,16 @@
       document.getElementById('pricing-b2b').classList.add('active');
     }
   }
+
+  // Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.scroll-active').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
