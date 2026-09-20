@@ -6,620 +6,379 @@
 <link rel="icon" type="image/png" href="logo.png">
 <title>Adpowers Digital — Agence de Croissance</title>
 <meta name="description" content="Adpowers Digital — agence de marketing de performance à Alger.">
+
+<!-- Google Fonts: Cairo -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #030712;
-    --bg-secondary: #0B1120;
-    --surface: rgba(255, 255, 255, 0.03);
-    --surface-hover: rgba(255, 255, 255, 0.06);
-    --border: rgba(255, 255, 255, 0.1);
-    --text: #F8FAFC;
-    --muted: #94A3B8;
-    --primary: #3B82F6;
-    --accent: #8B5CF6;
-    --cyan: #06B6D4;
-  }
-  
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
-  a { text-decoration: none; color: inherit; }
-  
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10; }
-
-  /* Dynamic Animated Background */
-  .bg-glow {
-    position: fixed;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    background: 
-      radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.08), transparent 40%),
-      radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08), transparent 40%),
-      radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.08), transparent 40%);
-    z-index: 0; pointer-events: none;
-    animation: rotateBg 40s linear infinite;
-  }
-  @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-  .noise {
-    position: fixed; inset: 0; z-index: 1; opacity: 0.04; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
-
-  /* Header */
-  header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 20px 0; transition: all 0.4s ease;
-  }
-  header.scrolled {
-    padding: 12px 0;
-    background: rgba(3, 7, 18, 0.8);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-  nav { display: flex; justify-content: space-between; align-items: center; }
-  .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
-  .logo img { width: 40px; height: 40px; border-radius: 12px; }
-  
-  .nav-links { display: flex; gap: 8px; align-items: center; }
-  .nav-links a {
-    padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500;
-    color: var(--muted); transition: all 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); background: var(--surface); }
-  
-  /* Dropdown Menu */
-  .dropdown { position: relative; }
-  .dropdown-content {
-    display: none; position: absolute; top: 100%; left: 0;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 8px; min-width: 220px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100;
-  }
-  .dropdown:hover .dropdown-content { display: flex; flex-direction: column; }
-  .dropdown-content a {
-    padding: 10px 16px; color: var(--muted); border-radius: 6px; font-size: 14px;
-    display: block; width: 100%; text-align: left;
-  }
-  .dropdown-content a:hover { background: rgba(255,255,255,0.05); color: #fff; }
-  .btn-nav {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #FFF !important; padding: 12px 24px !important; margin-left: 8px;
-    box-shadow: 0 4px 20px rgba(59,130,246,0.3);
-  }
-  .btn-nav:hover {
-    transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.4);
-  }
-
-  /* Hero Section */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 160px 0 80px; position: relative;
-  }
-  .hero-content { max-width: 800px; margin: 0 auto; text-align: center; }
-  
-  .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 16px; border-radius: 99px; border: 1px solid var(--border);
-    background: var(--surface); backdrop-filter: blur(10px);
-    font-size: 13px; font-weight: 600; color: var(--cyan); margin-bottom: 32px;
-  }
-  .badge .dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); animation: pulse 2s infinite; }
-  
-  .hero h1 {
-    font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 24px;
-  }
-  .text-gradient {
-    background: linear-gradient(135deg, #FFF, var(--muted));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .text-gradient-primary {
-    background: linear-gradient(135deg, var(--cyan), var(--primary), var(--accent));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  
-  .hero p { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--muted); max-width: 600px; margin: 0 auto 40px; line-height: 1.6; }
-  
-  .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 16px 32px; border-radius: 99px; font-weight: 600; font-size: 16px;
-    transition: all 0.3s ease; cursor: pointer; border: none;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--accent)); color: #FFF;
-    box-shadow: 0 10px 30px rgba(59,130,246,0.3); position: relative; overflow: hidden;
-  }
-  .btn-primary::after {
-    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: 0.5s;
-  }
-  .btn-primary:hover::after { left: 100%; }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(139,92,246,0.4); }
-  
-  .btn-secondary {
-    background: var(--surface); border: 1px solid var(--border); color: var(--text);
-    backdrop-filter: blur(10px);
-  }
-  .btn-secondary:hover { background: var(--surface-hover); border-color: var(--cyan); color: var(--cyan); transform: translateY(-3px); }
-
-  /* Marquee */
-  .marquee-container {
-    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 30px 0; overflow: hidden; background: rgba(3,7,18,0.5); backdrop-filter: blur(10px);
-    position: relative; z-index: 10;
-  }
-  .marquee { display: flex; width: max-content; animation: scroll 30s linear infinite; }
-  .marquee span {
-    font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--muted);
-    padding: 0 40px; display: flex; align-items: center; gap: 20px;
-  }
-  .marquee span::after { content: '✦'; color: var(--border); font-size: 14px; }
-  @keyframes scroll { to { transform: translateX(-50%); } }
-
-  /* Sections Gen */
-  section { padding: 120px 0; position: relative; z-index: 10; }
-  .section-head { text-align: center; max-width: 700px; margin: 0 auto 64px; }
-  .section-head h2 { font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 16px; letter-spacing: -0.03em; }
-  .section-head p { color: var(--muted); font-size: 18px; line-height: 1.6; }
-
-  /* Services Grid (Glassmorphism) */
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-  .service-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
-    padding: 40px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: block; position: relative; overflow: hidden;
-  }
-  .service-card::before {
-    content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-    opacity: 0; transition: opacity 0.4s;
-  }
-  .service-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: rgba(6, 182, 212, 0.4);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(6, 182, 212, 0.1);
-  }
-  .service-card:hover::before { opacity: 1; }
-  .service-icon {
-    width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    font-size: 28px; margin-bottom: 24px; transition: all 0.4s;
-  }
-  .service-card:hover .service-icon { background: var(--cyan); border-color: var(--cyan); transform: scale(1.1) rotate(5deg); }
-  .service-card h3 { font-size: 22px; margin-bottom: 12px; }
-  .service-card p { color: var(--muted); line-height: 1.6; font-size: 15px; }
-
-  /* System Funnel */
-  .funnel-container {
-    max-width: 800px; margin: 0 auto;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 32px;
-    padding: 4px; backdrop-filter: blur(16px);
-  }
-  .funnel-step {
-    padding: 32px 40px; border-radius: 28px; transition: all 0.3s;
-    display: flex; gap: 24px; align-items: flex-start; cursor: pointer;
-  }
-  .funnel-step:hover { background: rgba(255,255,255,0.02); }
-  .funnel-num {
-    font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700;
-    color: transparent; -webkit-text-stroke: 1px var(--muted);
-    min-width: 40px; transition: all 0.3s;
-  }
-  .funnel-step:hover .funnel-num { -webkit-text-stroke: 1px var(--cyan); color: var(--cyan); }
-  .funnel-content h3 { font-size: 20px; margin-bottom: 8px; color: var(--text); transition: color 0.3s; }
-  .funnel-step:hover .funnel-content h3 { color: var(--cyan); }
-  .funnel-content p { color: var(--muted); font-size: 15px; line-height: 1.6; }
-  .funnel-line { height: 1px; background: var(--border); margin: 0 20px; }
-
-  /* Stats */
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  @media(max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-  .stat-card { text-align: center; padding: 40px 20px; }
-  .stat-num {
-    font-family: 'Space Grotesk', sans-serif; font-size: 4rem; font-weight: 700;
-    background: linear-gradient(135deg, var(--cyan), var(--primary));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin-bottom: 12px;
-  }
-  .stat-label { font-weight: 600; color: var(--text); letter-spacing: 0.05em; text-transform: uppercase; font-size: 13px; }
-
-  /* Animation Classes */
-  .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-  
-  .delay-1 { transition-delay: 0.1s; }
-  .delay-2 { transition-delay: 0.2s; }
-  .delay-3 { transition-delay: 0.3s; }
-
-  @media (max-width: 768px) {
-    .nav-links { display: none; /* Add mobile menu logic if needed */ }
-    .hero { padding: 120px 0 60px; }
-    .funnel-step { flex-direction: column; gap: 12px; padding: 24px; }
-  }
-  /* Sticky Scroll Services */
-  .services-layout {
-    display: flex; gap: 60px; padding: 40px 0; align-items: flex-start;
-  }
-  .services-sticky {
-    position: sticky; top: 120px; flex: 1; max-width: 400px;
-  }
-  .services-sticky h2 {
-    font-size: clamp(2.4rem, 4vw, 3.5rem); margin-bottom: 20px;
-  }
-  .services-sticky p {
-    color: var(--muted); font-size: 1.1rem; line-height: 1.6;
-  }
-  .services-list {
-    flex: 2; display: flex; flex-direction: column; gap: 40px;
-  }
-  .service-row {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
-    padding: 48px 40px; backdrop-filter: blur(16px);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    opacity: 0.3; transform: scale(0.95); display: block;
-  }
-  .service-row.active {
-    opacity: 1; transform: scale(1); border-color: rgba(6, 182, 212, 0.4);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(6, 182, 212, 0.1);
-  }
-  .service-row-icon {
-    font-size: 32px; width: 64px; height: 64px; border-radius: 16px;
-    background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center;
-    margin-bottom: 24px; border: 1px solid var(--border); transition: all 0.4s;
-  }
-  .service-row.active .service-row-icon {
-    background: var(--cyan); border-color: var(--cyan); color: #fff; transform: scale(1.1) rotate(5deg);
-  }
-  .service-row h3 { font-size: 26px; margin-bottom: 12px; transition: color 0.4s; }
-  .service-row.active h3 { color: var(--cyan); }
-  .service-row p { font-size: 16px; color: var(--muted); line-height: 1.6; max-width: 500px; }
-  
-  @media(max-width: 900px) {
-    .services-layout { flex-direction: column; gap: 30px; padding: 20px 0; }
-    .services-sticky { position: static; max-width: 100%; margin-bottom: 20px; text-align: center; }
-    .services-sticky h2 { font-size: 2.2rem; }
-    .services-list { width: 100%; gap: 20px; }
-    .service-row { 
-      padding: 30px 24px; 
-      opacity: 1 !important; /* Force opacity on mobile */
-      transform: scale(1) !important; /* Force scale on mobile */
-    }
-    .service-row-icon { width: 48px; height: 48px; font-size: 24px; margin-bottom: 16px; }
-    .service-row h3 { font-size: 22px; margin-bottom: 8px; }
-    .service-row p { font-size: 14px; }
-  }
-  /* Floating Chat Widget */
-  .chat-widget {
-    position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-    font-family: inherit;
-  }
-  .chat-btn {
-    width: 60px; height: 60px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--cyan), var(--primary));
-    color: #fff; border: none; font-size: 24px; cursor: pointer;
-    box-shadow: 0 10px 20px rgba(6, 182, 212, 0.3);
-    transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center;
-  }
-  .chat-btn:hover { transform: scale(1.1); }
-  
-  .chat-window {
-    position: absolute; bottom: 80px; right: 0; width: 350px; height: 500px;
-    background: #0B1120; border: 1px solid var(--border); border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    display: flex; flex-direction: column; overflow: hidden;
-    transform: translateY(20px); opacity: 0; pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  .chat-window.open {
-    transform: translateY(0); opacity: 1; pointer-events: auto;
-  }
-  .chat-header {
-    background: rgba(255,255,255,0.05); padding: 20px; border-bottom: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .chat-header h3 { font-size: 16px; margin: 0; display: flex; align-items: center; gap: 8px; }
-  .chat-header h3::before { content: ''; width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
-  .close-chat { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; }
-  .close-chat:hover { color: #fff; }
-  
-  .chat-messages {
-    flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;
-  }
-  .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
-  .message.bot { background: rgba(255,255,255,0.05); color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
-  .message.user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-  
-  .chat-input {
-    padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 12px; background: #030712;
-  }
-  .chat-input input {
-    flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    padding: 12px 16px; border-radius: 99px; color: #fff; font-family: inherit; outline: none;
-  }
-  .chat-input button {
-    background: var(--cyan); border: none; width: 44px; height: 44px; border-radius: 50%;
-    color: #000; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s;
-  }
-  .chat-input button:hover { transform: scale(1.05); }
-
-  @media(max-width: 400px) {
-    .chat-window { width: calc(100vw - 40px); right: -10px; }
-  }
-</style>
-</head>
-<body>
-
-<div class="bg-glow"></div>
-<div class="noise"></div>
-
-<header id="header">
-  <div class="wrap">
-    <nav>
-      <a href="#" class="logo"><img src="logo.png" alt="Adpowers Digital"> Adpowers</a>
-      <div class="nav-links">
-        <div class="dropdown">
-          <a href="#services" style="cursor: pointer;">Services ▾</a>
-          <div class="dropdown-content">
-            <a href="testili.html">🧪 Testili Product</a>
-            <a href="facebook-ads.html">📱 Meta Ads</a>
-            <a href="websites.html">🌐 Création Site Web</a>
-            <a href="contact.html">🎙️ Voice Off</a>
-            <a href="contact.html">🎬 Montage Vidéo</a>
-            <a href="contact.html">✨ Création Contenu</a>
-          </div>
-        </div>
-        <a href="#systeme">Système</a>
-        <a href="#resultats">Résultats</a>
-        <a href="contact.html" class="btn btn-nav">Démarrer un projet</a>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-content">
-      <div class="badge fade-up visible"><span class="dot"></span> Agence de Performance Nouvelle Génération</div>
-      <h1 class="fade-up delay-1 visible">
-        <span class="text-gradient">On transforme votre</span><br>
-        <span class="text-gradient-primary">budget en croissance.</span>
-      </h1>
-      <p class="fade-up delay-2 visible">Ne payez plus pour des "clics". Investissez dans un système prédictible. Facebook Ads, Tunnels E-commerce et Créatifs conçus pour le ROI.</p>
-      <div class="hero-ctas fade-up delay-3 visible">
-        <a href="https://wa.me/213779411291" class="btn btn-primary" target="_blank">
-          Résoudre mes problèmes de vente →
-        </a>
-        <a href="#services" class="btn btn-secondary">
-          Explorer nos services
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="marquee-container">
-  <div class="marquee">
-    <span>E-commerce</span><span>Immobilier</span><span>Santé & Beauté</span><span>SaaS</span><span>Mode</span><span>Services B2B</span>
-    <span>E-commerce</span><span>Immobilier</span><span>Santé & Beauté</span><span>SaaS</span><span>Mode</span><span>Services B2B</span>
-  </div>
-</div>
-
-<section id="services">
-  <div class="wrap">
-    <div class="services-layout">
-      
-      <div class="services-sticky fade-up">
-        <div class="badge"><span class="dot"></span> Expertises</div>
-        <h2 class="text-gradient">Nos Services</h2>
-        <p>Une approche 360° pour développer votre marque. Scrollez pour découvrir comment nous transformons votre budget en croissance.</p>
-      </div>
-
-      <div class="services-list">
-        <a href="facebook-ads.html" class="service-row scroll-active">
-          <div class="service-row-icon">📱</div>
-          <h3>Meta Ads Media Buying</h3>
-          <p>Acquisition massive et retargeting chirurgical. On gère vos budgets pour maximiser votre ROAS.</p>
-        </a>
-        
-        <a href="websites.html" class="service-row scroll-active">
-          <div class="service-row-icon">🌐</div>
-          <h3>Création de Site Web</h3>
-          <p>E-commerce, Landing Pages, Sites Vitrines et Plateformes sur-mesure ultra-performantes.</p>
-        </a>
-        
-        <a href="contact.html" class="service-row scroll-active">
-          <div class="service-row-icon">🎙️</div>
-          <h3>Voice Off</h3>
-          <p>Enregistrement de voix professionnelles pour vos vidéos promotionnelles, publicités et présentations.</p>
-        </a>
-        
-        <a href="contact.html" class="service-row scroll-active">
-          <div class="service-row-icon">🎬</div>
-          <h3>Montage Vidéo</h3>
-          <p>Montage dynamique, étalonnage et motion design pour des vidéos qui captent l'attention de votre audience.</p>
-        </a>
-
-        <a href="contact.html" class="service-row scroll-active">
-          <div class="service-row-icon">✨</div>
-          <h3>Création de Contenu</h3>
-          <p>Production de visuels, rédaction publicitaire (copywriting) et assets créatifs conçus pour convertir.</p>
-        </a>
-
-        <a href="testili.html" class="service-row scroll-active">
-          <div class="service-row-icon">📦</div>
-          <h3>Testili Product</h3>
-          <p>Testing approfondi de vos produits e-commerce. On valide vos produits winners avec des campagnes ciblées.</p>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section id="systeme">
-  <div class="wrap">
-    <div class="section-head fade-up">
-      <h2 class="text-gradient">Notre Système</h2>
-      <p>Comment nous transformons des inconnus en clients fidèles pour votre marque.</p>
-    </div>
-    
-    <div class="funnel-container fade-up delay-1">
-      <div class="funnel-step">
-        <div class="funnel-num">01</div>
-        <div class="funnel-content">
-          <h3>Audit & Stratégie</h3>
-          <p>Analyse de votre marché, de vos concurrents et définition de votre offre irrésistible. On ne lance rien à l'aveugle.</p>
-        </div>
-      </div>
-      <div class="funnel-line"></div>
-      <div class="funnel-step">
-        <div class="funnel-num">02</div>
-        <div class="funnel-content">
-          <h3>Production Créative</h3>
-          <p>Création des angles marketing, rédaction du copy et design des assets vidéos/images pour capter l'attention.</p>
-        </div>
-      </div>
-      <div class="funnel-line"></div>
-      <div class="funnel-step">
-        <div class="funnel-num">03</div>
-        <div class="funnel-content">
-          <h3>Lancement & Testing</h3>
-          <p>Lancement des campagnes avec un budget test. Analyse des KPIs initiaux et identification des audiences gagnantes.</p>
-        </div>
-      </div>
-      <div class="funnel-line"></div>
-      <div class="funnel-step">
-        <div class="funnel-num">04</div>
-        <div class="funnel-content">
-          <h3>Scaling Vertical</h3>
-          <p>On coupe ce qui ne marche pas, et on injecte le budget sur les campagnes rentables. Croissance exponentielle.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="resultats" style="background: rgba(3,7,18,0.6); backdrop-filter: blur(20px); border-top: 1px solid var(--border);">
-  <div class="wrap">
-    <div class="stats-grid">
-      <div class="stat-card fade-up">
-        <div class="stat-num">300%</div>
-        <div class="stat-label">Hausse du ROAS moyen</div>
-      </div>
-      <div class="stat-card fade-up delay-1">
-        <div class="stat-num">50+</div>
-        <div class="stat-label">Projets Scalés</div>
-      </div>
-      <div class="stat-card fade-up delay-2">
-        <div class="stat-num">24/7</div>
-        <div class="stat-label">Monitoring Data</div>
-      </div>
-      <div class="stat-card fade-up delay-3">
-        <div class="stat-num">14j</div>
-        <div class="stat-label">Temps de Lancement</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<footer style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 60px;">
-  <div class="wrap" style="text-align: center; color: var(--muted);">
-    <p style="margin-bottom: 20px;"><img src="logo.png" alt="Adpowers" style="width: 40px; border-radius: 8px;"></p>
-    <p>© 2026 Adpowers Digital. Tous droits réservés.</p>
-  </div>
-</footer>
-
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 <script>
-  // Header blur effect on scroll
-  window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-
-  // Intersection Observer for scroll animations (fade-up)
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.fade-up').forEach(element => {
-    // Check if not already visible (hero elements are visible by default)
-    if (!element.classList.contains('visible')) {
-      observer.observe(element);
-    }
-  });
-  // Sticky Scroll Animations for Services (Desktop Only)
-  if (window.matchMedia("(min-width: 900px)").matches) {
-    const scrollObserverOptions = {
-      root: null,
-      rootMargin: '-30% 0px -40% 0px',
-      threshold: 0.1
-    };
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        } else {
-          entry.target.classList.remove('active');
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            primary: '#3CA1D5',
+            'primary-dark': '#2C85B2',
+            'primary-light': '#E8F4FA',
+            'primary-subtle': '#F4F8FC',
+            secondary: '#1C4A8A',
+            'secondary-dark': '#123360',
+            'secondary-light': '#2664B5',
+            dark: '#0A1728',
+            slate: '#0F172A',
+            muted: '#64748B',
+            border: '#E2E8F0',
+            surface: '#F8FAFC'
+          }
+        },
+        fontFamily: {
+          cairo: ['Cairo', 'sans-serif'],
+          sans: ['Cairo', 'system-ui', '-apple-system', 'sans-serif']
         }
-      });
-    }, scrollObserverOptions);
-  
-    document.querySelectorAll('.scroll-active').forEach(el => scrollObserver.observe(el));
-  } else {
-    // On mobile, just make all of them active statically
-    document.querySelectorAll('.scroll-active').forEach(el => el.classList.add('active'));
+      }
+    }
   }
 </script>
 
-<!-- AI Chat Widget -->
+<style>
+  /* Custom Animations and Overrides */
+  .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+  .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+
+  /* Navbar Scrolled State */
+  #main-navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #E2E8F0;
+    padding-top: 12px; padding-bottom: 12px;
+  }
+  
+  /* Marquee */
+  .marquee { display: flex; width: max-content; animation: scroll 30s linear infinite; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* Chat Widget */
+  .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
+  .chat-window {
+    position: absolute; bottom: 80px; right: 0; width: 350px; height: 500px;
+    background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; overflow: hidden;
+    transform: translateY(20px); opacity: 0; pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .chat-window.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: #F8FAFC; }
+  .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
+  .message.bot { background: #E8F4FA; color: #123360; align-self: flex-start; border-bottom-left-radius: 4px; }
+  .message.user { background: #3CA1D5; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+  @media(max-width: 400px) { .chat-window { width: calc(100vw - 40px); right: -10px; } }
+</style>
+</head>
+<body class="antialiased bg-white selection:bg-brand-primary-light selection:text-brand-secondary text-slate-800" style="font-family: 'Cairo', sans-serif;">
+
+<!-- Header -->
+<header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-lg">
+        <img src="logo.png" alt="Adpowers Digital Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105 rounded-xl">
+        <span class="font-bold text-xl text-brand-dark tracking-tight">Adpowers</span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-600">
+        <!-- Dropdown -->
+        <div class="relative group">
+          <button class="hover:text-brand-secondary transition-colors flex items-center gap-1">Services <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="absolute top-full left-0 mt-2 w-56 bg-white border border-brand-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-2 flex flex-col gap-1">
+            <a href="testili.html" class="px-4 py-2 hover:bg-brand-surface rounded-lg text-slate-700 hover:text-brand-primary text-sm font-medium transition-colors">🧪 Testili Product</a>
+            <a href="facebook-ads.html" class="px-4 py-2 hover:bg-brand-surface rounded-lg text-slate-700 hover:text-brand-primary text-sm font-medium transition-colors">📱 Meta Ads</a>
+            <a href="websites.html" class="px-4 py-2 hover:bg-brand-surface rounded-lg text-slate-700 hover:text-brand-primary text-sm font-medium transition-colors">🌐 Création Site Web</a>
+            <a href="contact.html" class="px-4 py-2 hover:bg-brand-surface rounded-lg text-slate-700 hover:text-brand-primary text-sm font-medium transition-colors">🎙️ Voice Off</a>
+            <a href="contact.html" class="px-4 py-2 hover:bg-brand-surface rounded-lg text-slate-700 hover:text-brand-primary text-sm font-medium transition-colors">🎬 Montage Vidéo</a>
+            <a href="contact.html" class="px-4 py-2 hover:bg-brand-surface rounded-lg text-slate-700 hover:text-brand-primary text-sm font-medium transition-colors">✨ Création Contenu</a>
+          </div>
+        </div>
+        <a href="#systeme" class="hover:text-brand-secondary transition-colors">Système</a>
+        <a href="#resultats" class="hover:text-brand-secondary transition-colors">Résultats</a>
+      </nav>
+      
+      <div class="flex items-center gap-3">
+        <a href="contact.html" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-secondary text-white font-semibold text-sm transition-all duration-200 shadow-sm transform active:scale-95">
+          Démarrer un projet
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section id="hero" class="relative pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden bg-brand-surface">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-primary/20 bg-brand-primary/5 text-brand-secondary font-medium text-sm mb-8 reveal-on-scroll">
+      <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
+      Agence de Performance Nouvelle Génération
+    </div>
+    
+    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-brand-dark tracking-tight mb-6 reveal-on-scroll delay-100">
+      On transforme votre <br class="hidden sm:block">
+      <span class="text-brand-primary">budget en croissance.</span>
+    </h1>
+    
+    <p class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-600 mb-10 reveal-on-scroll delay-200">
+      Ne payez plus pour des "clics". Investissez dans un système prédictible. Facebook Ads, Tunnels E-commerce et Créatifs conçus pour le ROI.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal-on-scroll delay-300">
+      <a href="https://wa.me/213779411291" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-dark hover:bg-slate-800 text-white font-semibold transition-all duration-200 shadow-lg transform active:scale-95 flex items-center justify-center gap-2">
+        Résoudre mes problèmes de vente →
+      </a>
+      <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white border border-brand-border text-slate-700 hover:text-brand-primary hover:border-brand-primary/30 font-semibold transition-all duration-200 shadow-sm">
+        Explorer nos services
+      </a>
+    </div>
+
+    <!-- 3-Pillar Visual Grid (Ambyte Style) -->
+    <div class="mt-16 sm:mt-24 max-w-5xl mx-auto reveal-on-scroll">
+      <div class="relative bg-gradient-to-b from-slate-900 to-brand-dark rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl border border-slate-800 overflow-hidden text-left">
+        <!-- Window Header -->
+        <div class="flex items-center justify-between pb-4 sm:pb-6 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            <span class="ml-3 text-xs font-medium text-slate-400 font-mono">adpowers-growth-engine.v1</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-2 text-xs font-semibold text-brand-primary bg-brand-primary/10 px-3 py-1 rounded-full border border-brand-primary/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-primary animate-ping"></span>
+            ROI Focused
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-6">
+          <!-- Pillar 1 -->
+          <div class="bg-slate-800/70 border border-slate-700/60 rounded-xl p-4 hover:border-brand-primary/60 transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-brand-primary uppercase tracking-wider">01 — ACQUISITION</span>
+              <div class="p-1.5 rounded-lg bg-brand-primary/10 text-brand-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+            </div>
+            <div class="h-32 bg-slate-900 rounded-lg flex items-center justify-center border border-slate-800 text-4xl">📱</div>
+            <p class="text-xs text-slate-300 font-medium mt-3">Meta & TikTok Ads</p>
+          </div>
+          
+          <!-- Pillar 2 -->
+          <div class="bg-slate-800/70 border border-slate-700/60 rounded-xl p-4 hover:border-cyan-400/60 transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">02 — CONVERSION</span>
+              <div class="p-1.5 rounded-lg bg-cyan-400/10 text-cyan-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+            </div>
+            <div class="h-32 bg-slate-900 rounded-lg flex items-center justify-center border border-slate-800 text-4xl">🌐</div>
+            <p class="text-xs text-slate-300 font-medium mt-3">E-commerce & Landing Pages</p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="bg-slate-800/70 border border-slate-700/60 rounded-xl p-4 hover:border-amber-400/60 transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">03 — CREATIVE</span>
+              <div class="p-1.5 rounded-lg bg-amber-400/10 text-amber-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              </div>
+            </div>
+            <div class="h-32 bg-slate-900 rounded-lg flex items-center justify-center border border-slate-800 text-4xl">🎬</div>
+            <p class="text-xs text-slate-300 font-medium mt-3">High-Impact Media & Copy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="bg-brand-primary text-white py-4 overflow-hidden border-y border-brand-primary-dark">
+  <div class="marquee flex whitespace-nowrap">
+    <span class="px-8 font-bold tracking-widest uppercase text-sm">E-commerce • Immobilier • Santé & Beauté • SaaS • Mode • Services B2B • E-commerce • Immobilier • Santé & Beauté • SaaS • Mode • Services B2B</span>
+  </div>
+</div>
+
+<!-- Services Grid -->
+<section id="services" class="py-24 bg-white relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+      <h2 class="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Nos Services</h2>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark">Une approche 360° pour développer votre marque</h3>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      
+      <!-- Meta Ads -->
+      <a href="facebook-ads.html" class="group bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 reveal-on-scroll">
+        <div class="w-14 h-14 bg-white border border-brand-border rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-sm">📱</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-primary transition-colors">Meta Ads Media Buying</h4>
+        <p class="text-slate-600 text-sm leading-relaxed">Acquisition massive et retargeting chirurgical. On gère vos budgets pour maximiser votre ROAS.</p>
+      </a>
+
+      <!-- Web -->
+      <a href="websites.html" class="group bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 reveal-on-scroll delay-100">
+        <div class="w-14 h-14 bg-white border border-brand-border rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-sm">🌐</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-primary transition-colors">Création de Site Web</h4>
+        <p class="text-slate-600 text-sm leading-relaxed">E-commerce, Landing Pages, Sites Vitrines et Plateformes sur-mesure ultra-performantes.</p>
+      </a>
+
+      <!-- Testili -->
+      <a href="testili.html" class="group bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 reveal-on-scroll delay-200">
+        <div class="w-14 h-14 bg-white border border-brand-border rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-sm">🧪</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-primary transition-colors">Testili Product</h4>
+        <p class="text-slate-600 text-sm leading-relaxed">Testing approfondi de vos produits e-commerce. On valide vos produits winners avec des campagnes ciblées.</p>
+      </a>
+
+      <!-- Voice -->
+      <a href="contact.html" class="group bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 reveal-on-scroll">
+        <div class="w-14 h-14 bg-white border border-brand-border rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-sm">🎙️</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-primary transition-colors">Voice Off</h4>
+        <p class="text-slate-600 text-sm leading-relaxed">Enregistrement de voix professionnelles pour vos vidéos promotionnelles et publicités.</p>
+      </a>
+
+      <!-- Video -->
+      <a href="contact.html" class="group bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 reveal-on-scroll delay-100">
+        <div class="w-14 h-14 bg-white border border-brand-border rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-sm">🎬</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-primary transition-colors">Montage Vidéo</h4>
+        <p class="text-slate-600 text-sm leading-relaxed">Montage dynamique, étalonnage et motion design pour des vidéos qui captent l'attention.</p>
+      </a>
+
+      <!-- Content -->
+      <a href="contact.html" class="group bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 reveal-on-scroll delay-200">
+        <div class="w-14 h-14 bg-white border border-brand-border rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-sm">✨</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-primary transition-colors">Création de Contenu</h4>
+        <p class="text-slate-600 text-sm leading-relaxed">Production de visuels, rédaction publicitaire (copywriting) et assets créatifs.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- System / Process Section -->
+<section id="systeme" class="py-24 bg-brand-dark text-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+      <h2 class="text-brand-primary font-bold tracking-wider uppercase text-sm mb-3">Notre Système</h2>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Comment nous transformons des inconnus en clients</h3>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <!-- Step 1 -->
+      <div class="reveal-on-scroll">
+        <div class="text-5xl font-black text-slate-800 mb-4 font-mono">01</div>
+        <h4 class="text-xl font-bold mb-3 text-white">Audit & Stratégie</h4>
+        <p class="text-slate-400 text-sm leading-relaxed">Analyse de votre marché, de vos concurrents et définition de votre offre irrésistible. On ne lance rien à l'aveugle.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="reveal-on-scroll delay-100">
+        <div class="text-5xl font-black text-slate-800 mb-4 font-mono">02</div>
+        <h4 class="text-xl font-bold mb-3 text-white">Production Créative</h4>
+        <p class="text-slate-400 text-sm leading-relaxed">Création des angles marketing, rédaction du copy et design des assets vidéos/images pour capter l'attention.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="reveal-on-scroll delay-200">
+        <div class="text-5xl font-black text-slate-800 mb-4 font-mono">03</div>
+        <h4 class="text-xl font-bold mb-3 text-white">Lancement & Testing</h4>
+        <p class="text-slate-400 text-sm leading-relaxed">Lancement des campagnes avec un budget test. Analyse des KPIs initiaux et identification des audiences gagnantes.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="reveal-on-scroll delay-300">
+        <div class="text-5xl font-black text-slate-800 mb-4 font-mono">04</div>
+        <h4 class="text-xl font-bold mb-3 text-brand-primary">Scaling Vertical</h4>
+        <p class="text-slate-400 text-sm leading-relaxed">On coupe ce qui ne marche pas, et on injecte le budget sur les campagnes rentables. Croissance exponentielle.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Results / Stats -->
+<section id="resultats" class="py-20 bg-brand-primary text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+      <div class="reveal-on-scroll">
+        <div class="text-4xl sm:text-5xl font-black mb-2">300%</div>
+        <div class="text-sm font-semibold uppercase tracking-wider text-brand-primary-light">Hausse du ROAS moyen</div>
+      </div>
+      <div class="reveal-on-scroll delay-100">
+        <div class="text-4xl sm:text-5xl font-black mb-2">50+</div>
+        <div class="text-sm font-semibold uppercase tracking-wider text-brand-primary-light">Projets Scalés</div>
+      </div>
+      <div class="reveal-on-scroll delay-200">
+        <div class="text-4xl sm:text-5xl font-black mb-2">24/7</div>
+        <div class="text-sm font-semibold uppercase tracking-wider text-brand-primary-light">Monitoring Data</div>
+      </div>
+      <div class="reveal-on-scroll delay-300">
+        <div class="text-4xl sm:text-5xl font-black mb-2">14j</div>
+        <div class="text-sm font-semibold uppercase tracking-wider text-brand-primary-light">Temps de Lancement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white py-12 border-t border-brand-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <img src="logo.png" alt="Adpowers" class="h-10 w-auto mx-auto rounded-xl mb-6">
+    <p class="text-slate-500 font-medium text-sm">© 2026 Adpowers Digital. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<!-- AI Chat Widget (Restyled for Light Mode) -->
 <div class="chat-widget">
-  <button class="chat-btn" id="chat-toggle">💬</button>
+  <button class="w-14 h-14 rounded-full bg-brand-primary text-white shadow-xl hover:scale-110 transition-transform flex items-center justify-center text-2xl" id="chat-toggle">💬</button>
   <div class="chat-window" id="chat-window">
-    <div class="chat-header">
-      <h3>Assistant Adpowers</h3>
-      <button class="close-chat" id="chat-close">✖</button>
+    <div class="bg-brand-dark p-4 flex justify-between items-center text-white">
+      <h3 class="font-bold flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Assistant Adpowers
+      </h3>
+      <button class="text-slate-300 hover:text-white" id="chat-close">✖</button>
     </div>
     <div class="chat-messages" id="chat-messages">
       <div class="message bot">Bonjour ! Je suis l'assistant virtuel d'Adpowers Digital. Comment puis-je vous aider aujourd'hui ?</div>
     </div>
-    <div class="chat-input">
-      <input type="text" id="chat-input" placeholder="Posez votre question..." autocomplete="off">
-      <button id="chat-send">➤</button>
+    <div class="p-4 bg-white border-t border-brand-border flex gap-2">
+      <input type="text" id="chat-input" placeholder="Posez votre question..." autocomplete="off" class="flex-1 bg-brand-surface border border-brand-border px-4 py-2 rounded-full text-slate-800 text-sm focus:outline-none focus:border-brand-primary">
+      <button id="chat-send" class="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-secondary transition-colors">➤</button>
     </div>
   </div>
 </div>
 
 <script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-navbar');
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+  // Chat logic
   const chatToggle = document.getElementById('chat-toggle');
   const chatClose = document.getElementById('chat-close');
   const chatWindow = document.getElementById('chat-window');
@@ -631,9 +390,7 @@
   chatClose.addEventListener('click', () => chatWindow.classList.remove('open'));
 
   const ZHIPU_API_KEY = "1a70da8747b34009885d6b1fbb1b24c4.vpeEBpZGrrpB9zAb";
-  let messageHistory = [
-    { role: "system", content: "Tu es l'assistant virtuel de l'agence Adpowers Digital (basée à Alger). L'agence propose : Meta Ads, Création de Site Web, Voice Off, Montage Vidéo, Création de Contenu, et Testili Product. Réponds aux questions des clients poliment, de manière professionnelle et courte (2-3 phrases max). Incite-les à cliquer sur les services ou à nous contacter s'ils veulent un devis." }
-  ];
+  let messageHistory = [{ role: "system", content: "Tu es l'assistant virtuel de l'agence Adpowers Digital (basée à Alger). Réponds aux questions des clients poliment." }];
 
   function addMessage(text, sender) {
     const msgDiv = document.createElement('div');
@@ -646,12 +403,10 @@
   async function sendMessage() {
     const text = chatInput.value.trim();
     if (!text) return;
-    
     addMessage(text, 'user');
     messageHistory.push({ role: "user", content: text });
     chatInput.value = '';
     
-    // Add loading indicator
     const loadingDiv = document.createElement('div');
     loadingDiv.classList.add('message', 'bot');
     loadingDiv.textContent = '...';
@@ -662,37 +417,25 @@
     try {
       const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${ZHIPU_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "glm-4",
-          messages: messageHistory,
-          max_tokens: 150
-        })
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ZHIPU_API_KEY}` },
+        body: JSON.stringify({ model: "glm-4", messages: messageHistory, max_tokens: 150 })
       });
-
       const data = await response.json();
       document.getElementById('chat-loading').remove();
-      
-      if (data && data.choices && data.choices[0] && data.choices[0].message) {
-        const reply = data.choices[0].message.content;
-        addMessage(reply, 'bot');
-        messageHistory.push({ role: "assistant", content: reply });
+      if (data?.choices?.[0]?.message) {
+        addMessage(data.choices[0].message.content, 'bot');
+        messageHistory.push({ role: "assistant", content: data.choices[0].message.content });
       } else {
-        addMessage("Désolé, je rencontre une erreur de connexion.", 'bot');
+        addMessage("Erreur de connexion.", 'bot');
       }
-    } catch (error) {
+    } catch (e) {
       document.getElementById('chat-loading').remove();
-      addMessage("Désolé, une erreur s'est produite.", 'bot');
+      addMessage("Erreur réseau.", 'bot');
     }
   }
 
   chatSend.addEventListener('click', sendMessage);
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage();
-  });
+  chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 </script>
 
 </body>
