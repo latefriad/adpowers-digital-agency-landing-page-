@@ -13,6 +13,141 @@
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 3;
+  
+  function openLeadModal() {
+    document.getElementById('leadModalOverlay').classList.remove('opacity-0', 'pointer-events-none');
+    document.getElementById('leadModal').classList.remove('scale-95');
+    currentStep = 1;
+    updateLeadView();
+  }
+  
+  function closeLeadModal() {
+    document.getElementById('leadModalOverlay').classList.add('opacity-0', 'pointer-events-none');
+    document.getElementById('leadModal').classList.add('scale-95');
+  }
+
+  function validateStep(step) {
+    document.getElementById('leadErrorMsg').classList.add('hidden');
+    if(step === 1) {
+      if(!document.getElementById('leadName').value.trim() || !document.getElementById('leadPhone').value.trim() || !document.querySelector('input[name="leadStatus"]:checked')) return false;
+    }
+    if(step === 2) {
+      if(!document.getElementById('leadDomain').value.trim() || !document.querySelector('input[name="leadBudget"]:checked')) return false;
+    }
+    if(step === 3) {
+      if(!document.querySelector('input[name="leadGoal"]:checked') || !document.querySelector('input[name="leadSpeed"]:checked')) return false;
+    }
+    return true;
+  }
+  
+  function nextLeadStep() {
+    if(!validateStep(currentStep)) {
+      document.getElementById('leadErrorMsg').classList.remove('hidden');
+      return;
+    }
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateLeadView();
+    }
+  }
+  
+  function prevLeadStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      updateLeadView();
+    }
+  }
+  
+  function updateLeadView() {
+    document.getElementById('leadProgress').style.width = (currentStep / totalSteps) * 100 + '%';
+    
+    for(let i=1; i<=totalSteps; i++) {
+      const el = document.getElementById('step' + i);
+      if (i === currentStep) {
+        el.classList.remove('opacity-0', '-translate-x-full', 'translate-x-full', 'pointer-events-none');
+        el.classList.add('opacity-100', 'translate-x-0');
+      } else if (i < currentStep) {
+        el.classList.add('opacity-0', 'translate-x-full', 'pointer-events-none'); // moving right for RTL past
+        el.classList.remove('opacity-100', 'translate-x-0', '-translate-x-full');
+      } else {
+        el.classList.add('opacity-0', '-translate-x-full', 'pointer-events-none'); // moving left for RTL future
+        el.classList.remove('opacity-100', 'translate-x-0', 'translate-x-full');
+      }
+    }
+    
+    if (currentStep === 1) {
+      document.getElementById('leadBackBtn').classList.add('hidden');
+    } else {
+      document.getElementById('leadBackBtn').classList.remove('hidden');
+    }
+    
+    if (currentStep === totalSteps) {
+      document.getElementById('leadNextBtn').classList.add('hidden');
+      document.getElementById('leadSubmitBtn').classList.remove('hidden');
+    } else {
+      document.getElementById('leadNextBtn').classList.remove('hidden');
+      document.getElementById('leadSubmitBtn').classList.add('hidden');
+    }
+  }
+
+  async function submitLeadForm() {
+    if(!validateStep(3)) {
+      document.getElementById('leadErrorMsg').classList.remove('hidden');
+      return;
+    }
+    
+    const name = document.getElementById('leadName').value;
+    const phone = document.getElementById('leadPhone').value;
+    const status = document.querySelector('input[name="leadStatus"]:checked').value;
+    const domain = document.getElementById('leadDomain').value;
+    const budget = document.querySelector('input[name="leadBudget"]:checked').value;
+    const goal = document.querySelector('input[name="leadGoal"]:checked').value;
+    const speed = document.querySelector('input[name="leadSpeed"]:checked').value;
+    
+    const text = `🚀 *طلب خدمة ميديا باينغ جديد* 🚀\n\n👤 *الاسم:* ${name}\n📞 *رقم الهاتف:* ${phone}\n📌 *الوضع الحالي:* ${status}\n🏢 *مجال النشاط:* ${domain}\n💰 *الميزانية الشهرية:* ${budget}\n🎯 *الهدف الأساسي:* ${goal}\n⏱️ *سرعة البدء:* ${speed}`;
+    
+    // REPLACE THESE WITH YOUR BOT TOKEN AND CHAT ID
+    const BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
+    const CHAT_ID = "YOUR_TELEGRAM_CHAT_ID";
+    
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    
+    document.getElementById('btnText').style.opacity = '0';
+    document.getElementById('btnSpinner').classList.remove('hidden');
+    
+    if(BOT_TOKEN === "YOUR_TELEGRAM_BOT_TOKEN") {
+       alert("يرجى إعداد توكن تيليجرام الخاص بك (YOUR_TELEGRAM_BOT_TOKEN و YOUR_TELEGRAM_CHAT_ID) في كود الصفحة لاستقبال الطلبات.");
+       document.getElementById('btnText').style.opacity = '1';
+       document.getElementById('btnSpinner').classList.add('hidden');
+       closeLeadModal();
+       return;
+    }
+
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: 'Markdown'
+        })
+      });
+      alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+      closeLeadModal();
+    } catch(err) {
+      alert('حدث خطأ في الإرسال. يرجى المحاولة لاحقاً.');
+    }
+    
+    document.getElementById('btnText').style.opacity = '1';
+    document.getElementById('btnSpinner').classList.add('hidden');
+  }
+</script>
+
 <script>
   tailwind.config = {
     darkMode: 'class',
@@ -121,9 +256,9 @@
     </p>
     
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal-on-scroll delay-300">
-      <a href="https://wa.me/213779411291" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-primary hover:bg-brand-primary-dark text-white font-bold text-lg transition-all duration-200 shadow-lg">
+      <button onclick="openLeadModal()" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-primary hover:bg-brand-primary-dark text-white font-bold text-lg transition-all duration-200 shadow-lg">
         وقف صرف الفلوس بلا نتيجة <span class="mr-2">←</span>
-      </a>
+      </button>
       <a href="#process" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white hover:bg-gray-50 border border-brand-border text-brand-dark font-bold text-lg transition-all duration-200">
         شوف كيفاش نخدمو
       </a>
@@ -485,9 +620,9 @@
     <p class="text-lg font-medium text-brand-primary-light mb-10 max-w-2xl mx-auto">ما ثماش خدمة سحرية، ثماني استهداف صحيح، Pixel مركب مليح، ومتابعة يومية. اطلب استشارة مجانية ونشوفو وين تقدر تربح أكثر من ميزانيتك.</p>
     
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="https://wa.me/213779411291" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-dark hover:bg-black text-white font-bold text-lg transition-all duration-200 shadow-xl border border-gray-700">
+      <button onclick="openLeadModal()" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-dark hover:bg-black text-white font-bold text-lg transition-all duration-200 shadow-xl border border-gray-700">
         اطلب استشارة مجانية <span class="mr-2">←</span>
-      </a>
+      </button>
       <a href="#compare" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-transparent hover:bg-white/10 border border-white/30 text-white font-bold text-lg transition-all duration-200">
         قارن بنفسك
       </a>
@@ -502,6 +637,154 @@
     <p class="text-slate-500 font-medium text-sm font-inter">© 2026 Adpowers Digital. حملات ميتا مدروسة، متابعة يومية، نتائج حقيقية.</p>
   </div>
 </footer>
+
+
+<!-- Lead Modal -->
+<div id="leadModalOverlay" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-sm z-[99999] opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-4">
+  <div id="leadModal" class="bg-[#0B1120] border border-gray-800 rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-all duration-300 relative text-white" dir="rtl">
+    <!-- Header -->
+    <div class="p-6 border-b border-gray-800 flex justify-between items-start">
+      <div>
+        <h3 class="text-xl font-bold mb-1 flex items-center gap-2">
+          ابدا حملتك
+          <span class="bg-[#00a8ff] text-white p-1.5 rounded-lg text-sm inline-flex leading-none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span>
+        </h3>
+        <p class="text-gray-400 text-sm">خطوات قصيرة، أقل من دقيقة</p>
+      </div>
+      <button onclick="closeLeadModal()" class="text-gray-500 hover:text-white transition-colors p-2 text-xl">✕</button>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="h-1 bg-gray-800 w-full relative" dir="rtl">
+      <div id="leadProgress" class="h-full bg-[#00a8ff] transition-all duration-300 w-1/3 absolute top-0 right-0"></div>
+    </div>
+
+    <!-- Steps Container -->
+    <div class="relative overflow-hidden" id="leadStepsContainer" style="min-height: 350px;">
+      
+      <!-- Step 1 -->
+      <div class="lead-step absolute inset-0 p-6 transition-all duration-300 opacity-100 translate-x-0" id="step1">
+        <div class="text-[#00a8ff] font-bold text-sm mb-4">الخطوة 1 من 3</div>
+        <h2 class="text-2xl font-bold mb-6">قبل ما نبداو، عرّفنا بيك</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <input type="text" id="leadName" class="w-full bg-[#1A2333] border border-gray-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-[#00a8ff] transition-colors placeholder-gray-500" placeholder="الاسم الكامل، مثال: أحمد بن علي">
+          </div>
+          <div>
+            <input type="tel" id="leadPhone" dir="ltr" class="w-full bg-[#1A2333] border border-gray-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-[#00a8ff] transition-colors placeholder-gray-500 text-right" placeholder="رقم الهاتف، مثال: 0555 12 34 56">
+          </div>
+          <div>
+            <div class="font-bold mb-3 mt-2">وضعك الحالي؟</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center gap-3 p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <input type="radio" name="leadStatus" value="عندي صفحة فيسبوك" class="w-4 h-4 accent-[#00a8ff]">
+                <span class="text-sm font-medium">عندي صفحة فيسبوك</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <input type="radio" name="leadStatus" value="حاب نبدا" class="w-4 h-4 accent-[#00a8ff]">
+                <span class="text-sm font-medium">حاب نبدا</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors sm:col-span-2">
+                <input type="radio" name="leadStatus" value="نعمل السبونسورات روحي" class="w-4 h-4 accent-[#00a8ff]">
+                <span class="text-sm font-medium">نعمل السبونسورات روحي</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="lead-step absolute inset-0 p-6 transition-all duration-300 opacity-0 translate-x-full pointer-events-none" id="step2">
+        <div class="text-[#00a8ff] font-bold text-sm mb-4">الخطوة 2 من 3</div>
+        <h2 class="text-2xl font-bold mb-2">وشنهي مجال نشاطك؟</h2>
+        <p class="text-gray-400 text-sm mb-6">باش نبنيولك بالضبط الاستهداف اللي يناسبك</p>
+        
+        <div class="space-y-6">
+          <div>
+            <input type="text" id="leadDomain" class="w-full bg-[#1A2333] border border-gray-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-[#00a8ff] transition-colors placeholder-gray-500" placeholder="متجر ملابس، مطعم، مدرسة لغات...">
+          </div>
+          <div>
+            <div class="font-bold mb-3">شحال ميزانية السبونسور الشهرية اللي رايح تخصصها؟</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <span class="text-sm font-medium">3,000 دج</span>
+                <input type="radio" name="leadBudget" value="3,000 دج" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <span class="text-sm font-medium">5,000 دج</span>
+                <input type="radio" name="leadBudget" value="5,000 دج" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors sm:col-span-2">
+                <span class="text-sm font-medium">10,000+ دج</span>
+                <input type="radio" name="leadBudget" value="10,000+ دج" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="lead-step absolute inset-0 p-6 transition-all duration-300 opacity-0 translate-x-full pointer-events-none" id="step3">
+        <div class="text-[#00a8ff] font-bold text-sm mb-4">الخطوة 3 من 3</div>
+        <h2 class="text-2xl font-bold mb-6">آخر شوية معلومات ونبداو نحضرو حملتك</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <div class="font-bold mb-3">شنو الهدف الأساسي من الحملة؟</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <span class="text-sm font-medium">زيادة الطلبيات</span>
+                <input type="radio" name="leadGoal" value="زيادة الطلبيات" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <span class="text-sm font-medium">زيادة الزوار للموقع</span>
+                <input type="radio" name="leadGoal" value="زيادة الزوار للموقع" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors sm:col-span-2">
+                <span class="text-sm font-medium">التعريف بالعلامة</span>
+                <input type="radio" name="leadGoal" value="التعريف بالعلامة" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+            </div>
+          </div>
+          <div>
+            <div class="font-bold mb-3">بأي سرعة تحب تبدا؟</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors sm:col-span-2">
+                <span class="text-sm font-medium">حاب نخدم بالسرعة، عيطلي اليوم</span>
+                <input type="radio" name="leadSpeed" value="اليوم" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <span class="text-sm font-medium">عندي الوقت، جمعة</span>
+                <input type="radio" name="leadSpeed" value="جمعة" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+              <label class="flex items-center justify-between p-3 bg-[#1A2333] border border-gray-700 rounded-xl cursor-pointer hover:border-[#00a8ff] transition-colors">
+                <span class="text-sm font-medium">نجم نستنى، أكثر من جمعة</span>
+                <input type="radio" name="leadSpeed" value="أكثر من جمعة" class="w-4 h-4 accent-[#00a8ff]">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="p-6 pt-2 bg-[#0B1120] border-t border-gray-800/0">
+      <div id="leadErrorMsg" class="text-red-400 text-sm mb-3 font-bold hidden text-center">يرجى ملء جميع الحقول المطلوبة</div>
+      <div class="flex items-center gap-3" dir="ltr">
+        <button id="leadNextBtn" onclick="nextLeadStep()" class="flex-1 bg-[#00a8ff] hover:bg-[#0097e6] text-white font-bold py-3.5 px-6 rounded-xl transition-colors shadow-[0_4px_14px_0_rgba(0,168,255,0.39)]">التالي</button>
+        <button id="leadSubmitBtn" onclick="submitLeadForm()" class="flex-1 bg-[#00a8ff] hover:bg-[#0097e6] text-white font-bold py-3.5 px-6 rounded-xl transition-colors shadow-[0_4px_14px_0_rgba(0,168,255,0.39)] hidden relative">
+          <span id="btnText">وقف الخسارة الآن</span>
+          <svg id="btnSpinner" class="animate-spin h-5 w-5 text-white absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        </button>
+        <button id="leadBackBtn" onclick="prevLeadStep()" class="bg-[#1A2333] hover:bg-[#253043] border border-gray-700 text-white font-bold w-14 h-[52px] rounded-xl flex items-center justify-center transition-colors hidden">→</button>
+      </div>
+      <div class="text-center text-xs text-gray-500 mt-4">بياناتك محفوظة ولن تُستخدم إلا للتواصل معك.</div>
+    </div>
+  </div>
+</div>
+
 
 <!-- AI Chat Widget -->
 <div class="fixed bottom-8 left-8 z-[9999]">
@@ -522,6 +805,141 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 3;
+  
+  function openLeadModal() {
+    document.getElementById('leadModalOverlay').classList.remove('opacity-0', 'pointer-events-none');
+    document.getElementById('leadModal').classList.remove('scale-95');
+    currentStep = 1;
+    updateLeadView();
+  }
+  
+  function closeLeadModal() {
+    document.getElementById('leadModalOverlay').classList.add('opacity-0', 'pointer-events-none');
+    document.getElementById('leadModal').classList.add('scale-95');
+  }
+
+  function validateStep(step) {
+    document.getElementById('leadErrorMsg').classList.add('hidden');
+    if(step === 1) {
+      if(!document.getElementById('leadName').value.trim() || !document.getElementById('leadPhone').value.trim() || !document.querySelector('input[name="leadStatus"]:checked')) return false;
+    }
+    if(step === 2) {
+      if(!document.getElementById('leadDomain').value.trim() || !document.querySelector('input[name="leadBudget"]:checked')) return false;
+    }
+    if(step === 3) {
+      if(!document.querySelector('input[name="leadGoal"]:checked') || !document.querySelector('input[name="leadSpeed"]:checked')) return false;
+    }
+    return true;
+  }
+  
+  function nextLeadStep() {
+    if(!validateStep(currentStep)) {
+      document.getElementById('leadErrorMsg').classList.remove('hidden');
+      return;
+    }
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateLeadView();
+    }
+  }
+  
+  function prevLeadStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      updateLeadView();
+    }
+  }
+  
+  function updateLeadView() {
+    document.getElementById('leadProgress').style.width = (currentStep / totalSteps) * 100 + '%';
+    
+    for(let i=1; i<=totalSteps; i++) {
+      const el = document.getElementById('step' + i);
+      if (i === currentStep) {
+        el.classList.remove('opacity-0', '-translate-x-full', 'translate-x-full', 'pointer-events-none');
+        el.classList.add('opacity-100', 'translate-x-0');
+      } else if (i < currentStep) {
+        el.classList.add('opacity-0', 'translate-x-full', 'pointer-events-none'); // moving right for RTL past
+        el.classList.remove('opacity-100', 'translate-x-0', '-translate-x-full');
+      } else {
+        el.classList.add('opacity-0', '-translate-x-full', 'pointer-events-none'); // moving left for RTL future
+        el.classList.remove('opacity-100', 'translate-x-0', 'translate-x-full');
+      }
+    }
+    
+    if (currentStep === 1) {
+      document.getElementById('leadBackBtn').classList.add('hidden');
+    } else {
+      document.getElementById('leadBackBtn').classList.remove('hidden');
+    }
+    
+    if (currentStep === totalSteps) {
+      document.getElementById('leadNextBtn').classList.add('hidden');
+      document.getElementById('leadSubmitBtn').classList.remove('hidden');
+    } else {
+      document.getElementById('leadNextBtn').classList.remove('hidden');
+      document.getElementById('leadSubmitBtn').classList.add('hidden');
+    }
+  }
+
+  async function submitLeadForm() {
+    if(!validateStep(3)) {
+      document.getElementById('leadErrorMsg').classList.remove('hidden');
+      return;
+    }
+    
+    const name = document.getElementById('leadName').value;
+    const phone = document.getElementById('leadPhone').value;
+    const status = document.querySelector('input[name="leadStatus"]:checked').value;
+    const domain = document.getElementById('leadDomain').value;
+    const budget = document.querySelector('input[name="leadBudget"]:checked').value;
+    const goal = document.querySelector('input[name="leadGoal"]:checked').value;
+    const speed = document.querySelector('input[name="leadSpeed"]:checked').value;
+    
+    const text = `🚀 *طلب خدمة ميديا باينغ جديد* 🚀\n\n👤 *الاسم:* ${name}\n📞 *رقم الهاتف:* ${phone}\n📌 *الوضع الحالي:* ${status}\n🏢 *مجال النشاط:* ${domain}\n💰 *الميزانية الشهرية:* ${budget}\n🎯 *الهدف الأساسي:* ${goal}\n⏱️ *سرعة البدء:* ${speed}`;
+    
+    // REPLACE THESE WITH YOUR BOT TOKEN AND CHAT ID
+    const BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
+    const CHAT_ID = "YOUR_TELEGRAM_CHAT_ID";
+    
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    
+    document.getElementById('btnText').style.opacity = '0';
+    document.getElementById('btnSpinner').classList.remove('hidden');
+    
+    if(BOT_TOKEN === "YOUR_TELEGRAM_BOT_TOKEN") {
+       alert("يرجى إعداد توكن تيليجرام الخاص بك (YOUR_TELEGRAM_BOT_TOKEN و YOUR_TELEGRAM_CHAT_ID) في كود الصفحة لاستقبال الطلبات.");
+       document.getElementById('btnText').style.opacity = '1';
+       document.getElementById('btnSpinner').classList.add('hidden');
+       closeLeadModal();
+       return;
+    }
+
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: 'Markdown'
+        })
+      });
+      alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+      closeLeadModal();
+    } catch(err) {
+      alert('حدث خطأ في الإرسال. يرجى المحاولة لاحقاً.');
+    }
+    
+    document.getElementById('btnText').style.opacity = '1';
+    document.getElementById('btnSpinner').classList.add('hidden');
+  }
+</script>
 
 <script>
   // Navbar scroll effect
