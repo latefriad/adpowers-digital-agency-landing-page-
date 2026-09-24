@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="logo.png">
-<title>Meta Ads Media Buying — Adpowers Digital</title>
+<title>سبونسورينغ ميتا يجيبلك زبائن حقيقيين — Adpowers Digital</title>
 
-<!-- Google Fonts: Cairo & Inter -->
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -20,20 +20,15 @@
       extend: {
         colors: {
           brand: {
-            primary: '#3CA1D5',
-            'primary-dark': '#2C85B2',
-            'primary-light': '#E8F4FA',
-            'primary-subtle': '#F4F8FC',
-            secondary: '#1C4A8A',
-            'secondary-dark': '#123360',
-            'secondary-light': '#2664B5',
-            dark: '#0A1728',
-            slate: '#0F172A',
-            muted: '#64748B',
-            border: '#E2E8F0',
-            surface: '#F8FAFC'
-          },
-          gold: '#FBBF24'
+            primary: '#10B981', // Emerald 500 (Qotra green)
+            'primary-dark': '#059669',
+            'primary-light': '#D1FAE5',
+            dark: '#111827', // Gray 900
+            slate: '#374151', // Gray 700
+            muted: '#6B7280', // Gray 500
+            border: '#E5E7EB', // Gray 200
+            surface: '#F9FAFB' // Gray 50
+          }
         },
         fontFamily: {
           cairo: ['Cairo', 'sans-serif'],
@@ -45,66 +40,56 @@
 </script>
 
 <style>
-  body { font-family: 'Cairo', sans-serif; }
+  body { font-family: 'Cairo', sans-serif; background-color: #ffffff; color: #111827; }
   .font-inter { font-family: 'Inter', sans-serif; }
   
-  .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-  .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
-  .delay-100 { transition-delay: 100ms; }
-  .delay-200 { transition-delay: 200ms; }
-  .delay-300 { transition-delay: 300ms; }
-
-  #main-navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid #E2E8F0;
-    padding-top: 12px; padding-bottom: 12px;
+  /* Hero animations */
+  @keyframes floatDown {
+    0% { transform: translateY(-10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
   }
+  .money-counter { animation: floatDown 1s ease-out forwards; }
   
-  .timeline-line::before { content: ''; position: absolute; top: 35px; left: 10%; right: 10%; height: 2px; background: rgba(60, 161, 213, 0.2); z-index: 0; }
-  @media(max-width: 768px) {
-    .timeline-line::before { top: 0; bottom: 0; right: 50%; left: auto; width: 2px; height: 100%; transform: translateX(50%); }
-  }
+  .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+  
+  .dot-badge { display: inline-block; width: 8px; height: 8px; background-color: #10B981; border-radius: 50%; margin-left: 8px; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+  .dot-pink { display: inline-block; width: 8px; height: 8px; background-color: #EC4899; border-radius: 50%; margin-left: 8px; }
 
-  /* Chat Widget */
-  .chat-widget { position: fixed; bottom: 30px; left: 30px; z-index: 9999; }
-  .chat-window {
-    position: absolute; bottom: 80px; left: 0; width: 350px; height: 500px;
-    background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    display: flex; flex-direction: column; overflow: hidden;
-    transform: translateY(20px); opacity: 0; pointer-events: none;
-    transition: all 0.3s ease;
-  }
-  .chat-window.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: #F8FAFC; }
-  .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; text-align: right; }
-  .message.bot { background: #E8F4FA; color: #123360; align-self: flex-start; border-bottom-right-radius: 4px; }
-  .message.user { background: #3CA1D5; color: #fff; align-self: flex-end; border-bottom-left-radius: 4px; }
-  @media(max-width: 400px) { .chat-window { width: calc(100vw - 40px); left: -10px; } }
+  /* Navbar */
+  .scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #E5E7EB; padding-top: 12px; padding-bottom: 12px; }
+
+  /* Custom grid layout for process */
+  .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+  
+  /* Timeline */
+  .process-num { font-family: 'Inter', sans-serif; font-size: 3rem; font-weight: 900; color: #E5E7EB; line-height: 1; margin-bottom: 0.5rem; }
 </style>
 </head>
-<body class="antialiased bg-brand-surface selection:bg-brand-primary-light selection:text-brand-secondary text-slate-800">
+<body class="antialiased selection:bg-brand-primary-light selection:text-brand-dark">
 
 <!-- Header -->
-<header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
+<header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 bg-white/80 backdrop-blur-sm border-b border-transparent">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between">
       
-      <div class="flex items-center gap-3">
-        <a href="https://wa.me/213779411291" target="_blank" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-secondary text-white font-semibold text-sm transition-all duration-200 shadow-sm transform active:scale-95">
-          احجز استشارتك
+      <div class="flex items-center gap-4">
+        <a href="https://wa.me/213779411291" target="_blank" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-brand-dark hover:bg-black text-white font-semibold text-sm transition-all duration-200 shadow-sm">
+          ابدأ حملتك
         </a>
       </div>
       
       <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-600">
-        <a href="index.html#services" class="hover:text-brand-secondary transition-colors">Services</a>
-        <a href="index.html" class="hover:text-brand-secondary transition-colors">Accueil</a>
+        <a href="#pain" class="hover:text-brand-primary transition-colors">وجعك</a>
+        <a href="#services" class="hover:text-brand-primary transition-colors">الخدمة</a>
+        <a href="#process" class="hover:text-brand-primary transition-colors">كيفاش نخدمو</a>
+        <a href="#compare" class="hover:text-brand-primary transition-colors">قارن</a>
+        <a href="#whyus" class="hover:text-brand-primary transition-colors">لماذا نحن</a>
       </nav>
 
-      <a href="index.html" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-lg font-inter">
+      <a href="index.html" class="flex items-center gap-3 group focus:outline-none">
         <span class="font-bold text-xl text-brand-dark tracking-tight">Adpowers</span>
-        <img src="logo.png" alt="Adpowers Digital Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105 rounded-xl">
+        <img src="logo.png" alt="Adpowers Digital Logo" class="h-9 w-auto rounded-lg">
       </a>
 
     </div>
@@ -112,314 +97,428 @@
 </header>
 
 <!-- Hero Section -->
-<section class="relative pt-40 pb-20 overflow-hidden bg-brand-surface text-center">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-primary/20 bg-brand-primary/5 text-brand-secondary font-medium text-sm mb-8 reveal-on-scroll">
-      🚀 Adpowers Media Buying
+<section class="pt-32 pb-16 px-4 bg-brand-surface relative overflow-hidden text-center">
+  
+  <div class="max-w-4xl mx-auto relative z-10 pt-10">
+    <div class="money-counter absolute -top-10 sm:-top-5 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+      <span class="text-red-500 font-bold text-xl mb-1">↓</span>
+      <span class="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-full text-sm font-inter border border-red-200 shadow-sm">-900 دج</span>
+      <span class="bg-white text-slate-600 text-xs px-2 py-1 rounded shadow-sm mt-1 border border-brand-border">السعر مو واضح فالسبونسور</span>
     </div>
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-dark tracking-tight mb-6 reveal-on-scroll delay-100">
-      ضخّم أرباحك وتوسع بثقة
+
+    <div class="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary-dark font-semibold text-sm mb-8 reveal-on-scroll">
+      <span class="dot-badge"></span>
+      لكل صاحب business تعبان من السبونسور العشوائي
+    </div>
+    
+    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-brand-dark tracking-tight mb-6 reveal-on-scroll delay-100 leading-tight">
+      سبونسور يجيبلك طلبيات حقيقية<br>
+      <span class="text-brand-primary">، ماشي لايكات فارغة.</span>
     </h1>
-    <p class="text-lg sm:text-xl text-slate-600 mb-10 reveal-on-scroll delay-200 max-w-2xl mx-auto">
-      نحن ندير حملاتك الإعلانية على منصات التواصل الاجتماعي باحترافية لنحول ميزانيتك الإعلانية إلى مبيعات ملموسة ونمو مستدام.
+    
+    <p class="text-lg sm:text-xl text-brand-slate mb-10 reveal-on-scroll delay-200 max-w-3xl mx-auto leading-relaxed">
+      تسبونسورت، صرفت الفلوس، وفالأخير ولا طلبية توصل. المشكلة ماهيش فيسبوك ولا انستغرام — المشكلة سبونسور بلا استهداف وبلا حد يتابعو. Adpowers تسيّرلك حملة ميتا كاملة من الصورة حتى الطلبية: استهداف مدروس، Pixel وTracking من البداية، ومتابعة يومية باش كل دينار يروح لزبون حقيقي.
     </p>
-    <div class="reveal-on-scroll delay-300">
-      <a href="https://wa.me/213779411291" target="_blank" class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-primary hover:bg-brand-secondary text-white font-bold text-lg transition-all duration-200 shadow-lg transform active:scale-95">
-        تحدث معنا الآن
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal-on-scroll delay-300">
+      <a href="https://wa.me/213779411291" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-primary hover:bg-brand-primary-dark text-white font-bold text-lg transition-all duration-200 shadow-lg">
+        وقف صرف الفلوس بلا نتيجة <span class="mr-2">←</span>
+      </a>
+      <a href="#process" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white hover:bg-gray-50 border border-brand-border text-brand-dark font-bold text-lg transition-all duration-200">
+        شوف كيفاش نخدمو
       </a>
     </div>
   </div>
 </section>
 
-<!-- Who is this for -->
-<section class="py-24 bg-white relative">
+<!-- Stats Strip -->
+<div class="bg-brand-dark text-white py-8 border-y border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x-reverse divide-x divide-gray-700">
+    <div class="px-4">
+      <div class="text-3xl font-black font-inter mb-1 text-brand-primary">+50</div>
+      <div class="text-sm text-gray-400">حملة مسيّرة عبر قطاعات مختلفة</div>
+    </div>
+    <div class="px-4">
+      <div class="text-3xl font-black font-inter mb-1 text-brand-primary">24/24</div>
+      <div class="text-sm text-gray-400">مراقبة ومتابعة يومية للحملة</div>
+    </div>
+    <div class="px-4">
+      <div class="text-3xl font-black font-inter mb-1 text-brand-primary">3 أيام</div>
+      <div class="text-sm text-gray-400">أول نتائج تبان فالداشبورد</div>
+    </div>
+    <div class="px-4">
+      <div class="text-3xl font-black font-inter mb-1 text-brand-primary">0</div>
+      <div class="text-sm text-gray-400">التزام طويل، توقف وقتما حبيت</div>
+    </div>
+  </div>
+</div>
+
+<!-- Pain points -->
+<section id="pain" class="py-24 bg-white relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
-      <h2 class="text-brand-primary font-bold tracking-wider text-sm mb-3">من هم عملاؤنا ؟</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark">لمن صُممت هذه الخدمة؟</h3>
+    <div class="mb-16 reveal-on-scroll">
+      <span class="inline-block px-3 py-1 bg-gray-100 text-brand-muted text-sm font-bold rounded-md mb-4 tracking-wider">وجعك اليومي</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-4">هاذي الأسباب اللي راهي تحرقلك الميزانية بلا ما تحس.</h2>
+      <p class="text-lg text-brand-slate max-w-3xl">كل وحدة وحدها تبان صغيرة، لكن مع بعضها هي السبب اللي الحملة تدير رقم "وصول" كبير، وفالبنك ولا طلبية.</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 text-center group reveal-on-scroll">
-        <div class="text-5xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform">🛒</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-4">المتاجر الإلكترونية</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">متاجر الدروبشيبينغ أو الإيكوميرس المحلي التي تسعى لمضاعفة مبيعاتها وزيادة الـ ROAS بشكل استراتيجي.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-primary/50 transition-colors reveal-on-scroll">
+        <div class="text-3xl mb-4 text-brand-primary">💸</div>
+        <h3 class="text-xl font-bold text-brand-dark mb-2">تبوّست، صرفت، ولا طلبية جات</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">الميزانية طارت على "وصول" و"تفاعل"، وحتى زبون واحد ما تواصل معاك.</p>
       </div>
       
-      <div class="bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 text-center group reveal-on-scroll delay-100">
-        <div class="text-5xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform">🏢</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-4">الشركات B2B</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">الشركات ومزودي الخدمات الباحثين عن جلب عملاء محتملين (Leads) ذوي جودة عالية بفضل الاستهداف الدقيق.</p>
+      <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-primary/50 transition-colors reveal-on-scroll delay-100">
+        <div class="text-3xl mb-4 text-brand-primary">🎯</div>
+        <h3 class="text-xl font-bold text-brand-dark mb-2">السبونسور يروح لناس ما عندهاش علاقة</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">بلا استهداف مدروس، تدفع باش يشوفك ناس ما شرالوش يوم فحياتهم.</p>
       </div>
       
-      <div class="bg-brand-surface border border-brand-border rounded-2xl p-8 hover:shadow-xl hover:border-brand-primary/40 transition-all duration-300 text-center group reveal-on-scroll delay-200">
-        <div class="text-5xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform">✨</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-4">العلامات التجارية</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">البراندات التي ترغب في تعزيز تواجدها الرقمي، زيادة الوعي بالعلامة، والهيمنة على السوق.</p>
+      <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-primary/50 transition-colors reveal-on-scroll delay-200">
+        <div class="text-3xl mb-4 text-brand-primary">🕵️</div>
+        <h3 class="text-xl font-bold text-brand-dark mb-2">ماكاين Pixel ولا تتبّع حقيقي</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">ما تعرفش شكون دخل، شكون طلب، وشكون خرج بلا ما يشري — تخدم بالعمى.</p>
       </div>
+      
+      <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-primary/50 transition-colors reveal-on-scroll">
+        <div class="text-3xl mb-4 text-brand-primary">📉</div>
+        <h3 class="text-xl font-bold text-brand-dark mb-2">ميمدولكش النصائح باش تسير business نتاعك</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">وكالة ولا فريلانسر يخدمولك السبونسور، أما ماشي حد يورّيك كيفاش تمشي الماكينة.</p>
+      </div>
+      
+      <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-primary/50 transition-colors reveal-on-scroll delay-100">
+        <div class="text-3xl mb-4 text-brand-primary">⏳</div>
+        <h3 class="text-xl font-bold text-brand-dark mb-2">حد ما يتابعلك الحملة يوميا</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">سبونسور ونمشي، وبعد جمعة تلقى الفلوس طارت بلا ولا تعديل واحد.</p>
+      </div>
+      
+      <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-primary/50 transition-colors reveal-on-scroll delay-200">
+        <div class="text-3xl mb-4 text-brand-primary">📊</div>
+        <h3 class="text-xl font-bold text-brand-dark mb-2">ماكاين أرقام واضحة، غير "الحملة ماشية مليح"</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">بلا تقرير أسبوعي بالأرقام، ما تقدرش تحكم وين رابح ووين خاسر.</p>
+      </div>
+      
     </div>
   </div>
 </section>
 
-<!-- Services Grid inside Media Buying -->
-<section class="py-24 bg-brand-surface relative">
+<!-- Process -->
+<section id="process" class="py-24 bg-brand-surface relative border-y border-brand-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
-      <h2 class="text-brand-primary font-bold tracking-wider text-sm mb-3">خدماتنا</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark">ماذا يشمل فريق الـ Media Buying؟</h3>
+    <div class="mb-16 reveal-on-scroll">
+      <span class="inline-block px-3 py-1 bg-white border border-brand-border text-brand-muted text-sm font-bold rounded-md mb-4 tracking-wider">كيفاش نخدمو</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-4">4 خطوات، وحملتك تولي تخدم بعقل.</h2>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-white border border-brand-border rounded-2xl p-6 hover:shadow-lg transition-all reveal-on-scroll">
-        <div class="w-12 h-12 bg-brand-primary/10 text-brand-primary rounded-xl flex items-center justify-center text-2xl mb-4">💬</div>
-        <h4 class="text-lg font-bold text-brand-dark mb-2">الاستشارة والمتابعة</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">نقوم بدراسة متجرك وعروضك، ونقدم توصيات دورية لتحسين مسار المبيعات بالكامل.</p>
+    <div class="process-grid">
+      
+      <div class="reveal-on-scroll">
+        <div class="process-num">01</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3">بحث واستهداف</h4>
+        <p class="text-brand-slate text-sm leading-relaxed">ندرسو الزبون المثالي تاعك: العمر، البلاصة، الاهتمامات — قبل ما نصرفو حتى دينار.</p>
       </div>
       
-      <div class="bg-white border border-brand-border rounded-2xl p-6 hover:shadow-lg transition-all reveal-on-scroll delay-100">
-        <div class="w-12 h-12 bg-brand-primary/10 text-brand-primary rounded-xl flex items-center justify-center text-2xl mb-4">🎯</div>
-        <h4 class="text-lg font-bold text-brand-dark mb-2">إطلاق الحملات</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">تصميم وإطلاق حملات إعلانية متقدمة على Meta، TikTok، وغيرها بناءً على أهدافك.</p>
+      <div class="reveal-on-scroll delay-100">
+        <div class="process-num">02</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3">نبنيو ونختبرو عدة سبونسورات</h4>
+        <p class="text-brand-slate text-sm leading-relaxed">3 إلى 4 زوايا مختلفة (UGC، فريلستايل، صور المنتوج) بميزانية صغيرة، ونشوفو شكون خدم فعلا.</p>
       </div>
       
-      <div class="bg-white border border-brand-border rounded-2xl p-6 hover:shadow-lg transition-all reveal-on-scroll delay-200">
-        <div class="w-12 h-12 bg-brand-primary/10 text-brand-primary rounded-xl flex items-center justify-center text-2xl mb-4">📊</div>
-        <h4 class="text-lg font-bold text-brand-dark mb-2">تقديم التقارير</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">تتبع دقيق للأداء والـ KPI's وتقديم تقارير شفافة ومبسطة توضح مدى نجاح الحملات.</p>
+      <div class="reveal-on-scroll delay-200">
+        <div class="process-num">03</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3">نركبو Pixel وTracking صحيح</h4>
+        <p class="text-brand-slate text-sm leading-relaxed">كل نقرة، رسالة، وطلبية تتسجل من اليوم الأول — باش الأرقام تكون حقيقية ماشي تخمين.</p>
       </div>
       
-      <div class="bg-white border border-brand-border rounded-2xl p-6 hover:shadow-lg transition-all reveal-on-scroll delay-300">
-        <div class="w-12 h-12 bg-brand-primary/10 text-brand-primary rounded-xl flex items-center justify-center text-2xl mb-4">🚀</div>
-        <h4 class="text-lg font-bold text-brand-dark mb-2">استراتيجيات التحسين</h4>
-        <p class="text-slate-600 text-sm leading-relaxed">اختبار الكريتيفز باستمرار والانتقال للـ Scaling لرفع الميزانيات بأمان.</p>
+      <div class="reveal-on-scroll delay-300">
+        <div class="process-num">04</div>
+        <h4 class="text-xl font-bold text-brand-dark mb-3">متابعة يومية وتحسين</h4>
+        <p class="text-brand-slate text-sm leading-relaxed">نوقفو لي ما خدمش، نزيدو ميزانية فلي رابح، ونبعثلك تقرير أسبوعي واضح بالأرقام.</p>
       </div>
+      
     </div>
   </div>
 </section>
 
-<!-- How we work (Timeline) -->
-<section class="py-24 bg-white relative">
+<!-- Services / Features -->
+<section id="services" class="py-24 bg-white relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
-      <h2 class="text-brand-primary font-bold tracking-wider text-sm mb-3">طريقة العمل</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark">كيف نعمل ؟</h3>
+    <div class="mb-16 reveal-on-scroll">
+      <span class="inline-block px-3 py-1 bg-gray-100 text-brand-muted text-sm font-bold rounded-md mb-4 tracking-wider">الخدمة</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-4">شنو رايح تلقى داخل خدمة السبونسورينغ تاعنا.</h2>
+      <p class="text-lg text-brand-slate max-w-3xl">ماشي غير "نسبونسورولك"، خدمة كاملة من الاستهداف حتى الليد يوصلك.</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative timeline-line mt-12">
-      <div class="text-center relative z-10 reveal-on-scroll">
-        <div class="w-16 h-16 mx-auto mb-6 bg-white border-2 border-brand-primary text-brand-primary rounded-full flex items-center justify-center text-2xl font-black shadow-lg">1</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-2">استشارة تسويقية</h4>
-        <p class="text-slate-600 text-sm">نجتمع معك لفهم منتجك، جمهورك المستهدف، وأهدافك البيعية بدقة.</p>
-      </div>
-      <div class="text-center relative z-10 reveal-on-scroll delay-100">
-        <div class="w-16 h-16 mx-auto mb-6 bg-white border-2 border-brand-primary text-brand-primary rounded-full flex items-center justify-center text-2xl font-black shadow-lg">2</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-2">نطوّر استراتيجية</h4>
-        <p class="text-slate-600 text-sm">نبني هيكل حملات متكامل ونحدد الميزانيات والخطط المثلى.</p>
-      </div>
-      <div class="text-center relative z-10 reveal-on-scroll delay-200">
-        <div class="w-16 h-16 mx-auto mb-6 bg-white border-2 border-brand-primary text-brand-primary rounded-full flex items-center justify-center text-2xl font-black shadow-lg">3</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-2">إطلاق الحملات</h4>
-        <p class="text-slate-600 text-sm">نبدأ مرحلة الـ Testing لاختبار المنتجات والإبداعات الفنية بأقل المخاطر.</p>
-      </div>
-      <div class="text-center relative z-10 reveal-on-scroll delay-300">
-        <div class="w-16 h-16 mx-auto mb-6 bg-white border-2 border-brand-primary text-brand-primary rounded-full flex items-center justify-center text-2xl font-black shadow-lg">4</div>
-        <h4 class="text-xl font-bold text-brand-dark mb-2">متابعة وتحسين</h4>
-        <p class="text-slate-600 text-sm">مراقبة يومية للنتائج، إيقاف الخاسر، والـ Scaling للإعلانات المربحة.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Platforms -->
-<section class="py-16 bg-brand-dark text-white text-center">
-  <div class="max-w-7xl mx-auto px-4">
-    <h3 class="text-2xl font-bold mb-8 text-brand-primary-light">المنصات التي نعمل عليها</h3>
-    <div class="flex flex-wrap justify-center gap-8 md:gap-16 font-inter font-black text-2xl sm:text-3xl opacity-80">
-      <span>Facebook Ads</span>
-      <span>Instagram</span>
-      <span>TikTok Ads</span>
-      <span>Snapchat</span>
-    </div>
-  </div>
-</section>
-
-<!-- Results -->
-<section class="py-24 bg-brand-surface text-center">
-  <div class="max-w-5xl mx-auto px-4">
-    <h2 class="text-brand-primary font-bold tracking-wider text-sm mb-3">نتائجنا</h2>
-    <h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-12">📸 لقطات من نتائج حملاتنا</h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="h-64 bg-white border border-dashed border-brand-border rounded-2xl flex items-center justify-center text-slate-400 font-medium shadow-sm reveal-on-scroll">
-        [أضف صورة لنتائج داشبورد الـ ROAS هنا]
-      </div>
-      <div class="h-64 bg-white border border-dashed border-brand-border rounded-2xl flex items-center justify-center text-slate-400 font-medium shadow-sm reveal-on-scroll delay-100">
-        [أضف صورة لنتائج المبيعات هنا]
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Pricing -->
-<section class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-12 reveal-on-scroll">
-      <h2 class="text-brand-primary font-bold tracking-wider text-sm mb-3">الأسعار والاشتراكات</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-4">اختر الباقة التي تناسب حجم متجرك وطموحاتك</h3>
-      <p class="text-slate-600">الأسعار أدناه تمثل تكلفة إدارة الحملات (Service Fee) وتعتمد على حجم ميزانيتك الإعلانية الشهرية.</p>
-    </div>
-    
-    <!-- Tabs -->
-    <div class="flex justify-center gap-4 mb-12">
-      <button class="tab-btn active px-6 py-3 rounded-full font-bold text-sm sm:text-base transition-all bg-brand-primary text-white shadow-md" onclick="switchPricing('general')">🛍️ Général Product</button>
-      <button class="tab-btn px-6 py-3 rounded-full font-bold text-sm sm:text-base transition-all bg-brand-surface text-slate-600 border border-brand-border hover:bg-slate-50" onclick="switchPricing('b2b')">🏢 B2B / Brand</button>
-    </div>
-    
-    <!-- Tab Content: General -->
-    <div id="pricing-general" class="pricing-content block animate-[fadeIn_0.5s_ease-out]">
-      <p class="text-center font-bold text-brand-primary mb-10">باقات جاهزة مناسبة لأصحاب المتاجر والمنتجات — سعر ثابت شهرياً.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- Standard -->
-        <div class="bg-white border border-brand-border rounded-3xl p-8 flex flex-col text-center shadow-sm hover:shadow-xl transition-shadow reveal-on-scroll">
-          <div class="text-slate-500 font-black tracking-widest text-xs mb-2 font-inter">STANDARD</div>
-          <h3 class="text-2xl font-bold text-brand-dark mb-4">الباقة الأساسية</h3>
-          <div class="text-4xl font-black text-brand-primary mb-6 pb-6 border-b border-brand-border font-inter">18,000 <span class="text-xl font-bold text-slate-500 font-cairo">دج</span></div>
-          <ul class="text-right space-y-4 text-slate-600 text-sm mb-8 flex-1">
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> خدمة Media Buying كاملة</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> منتج واحد أو Pack واحد</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> مدة شهر كامل</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> تقرير أداء أسبوعي</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> دعم فني مستمر</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-3 rounded-xl border-2 border-brand-primary text-brand-primary font-bold hover:bg-brand-primary hover:text-white transition-colors">اشترك الآن</a>
-        </div>
-        
-        <!-- Gold -->
-        <div class="bg-brand-dark border border-brand-dark rounded-3xl p-8 flex flex-col text-center shadow-2xl relative transform md:-translate-y-4 reveal-on-scroll delay-100">
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gold text-brand-dark font-black text-xs px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap">⭐ الأكثر طلباً</div>
-          <div class="text-gold font-black tracking-widest text-xs mb-2 font-inter mt-2">GOLD</div>
-          <h3 class="text-2xl font-bold text-white mb-4">الباقة الذهبية</h3>
-          <div class="text-4xl font-black text-white mb-6 pb-6 border-b border-slate-700 font-inter">28,000 <span class="text-xl font-bold text-slate-400 font-cairo">دج</span></div>
-          <ul class="text-right space-y-4 text-slate-300 text-sm mb-8 flex-1">
-            <li class="flex items-start gap-3"><span class="text-gold font-bold">✓</span> خدمة Media Buying متقدمة</li>
-            <li class="flex items-start gap-3"><span class="text-gold font-bold">✓</span> حتى 5 منتجات</li>
-            <li class="flex items-start gap-3"><span class="text-gold font-bold">✓</span> مدة شهر كامل</li>
-            <li class="flex items-start gap-3"><span class="text-gold font-bold">✓</span> تقارير أداء تفصيلية</li>
-            <li class="flex items-start gap-3"><span class="text-gold font-bold">✓</span> استراتيجية تحسين مستمرة</li>
-            <li class="flex items-start gap-3"><span class="text-gold font-bold">✓</span> أولوية في الدعم</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-3 rounded-xl bg-brand-primary text-white font-bold hover:bg-brand-secondary shadow-lg transition-colors">اشترك الآن</a>
-        </div>
-        
-        <!-- Premium -->
-        <div class="bg-white border border-brand-border rounded-3xl p-8 flex flex-col text-center shadow-sm hover:shadow-xl transition-shadow reveal-on-scroll delay-200">
-          <div class="text-brand-primary font-black tracking-widest text-xs mb-2 font-inter">PREMIUM</div>
-          <h3 class="text-2xl font-bold text-brand-dark mb-4">الباقة المميزة</h3>
-          <div class="text-4xl font-black text-brand-dark mb-6 pb-6 border-b border-brand-border font-inter">38,000 <span class="text-xl font-bold text-slate-500 font-cairo">دج</span></div>
-          <ul class="text-right space-y-4 text-slate-600 text-sm mb-8 flex-1">
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> خدمة Media Buying شاملة</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> حتى 9 منتجات</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> مدة شهر كامل</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> تحليل عميق ومفصّل</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> استراتيجية توسع متكاملة</li>
-            <li class="flex items-start gap-3"><span class="text-brand-primary font-bold">✓</span> مدير حساب مخصص</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-3 rounded-xl border-2 border-brand-dark text-brand-dark font-bold hover:bg-brand-dark hover:text-white transition-colors">اشترك الآن</a>
-        </div>
+      <div class="reveal-on-scroll">
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xl mb-4">🎯</div>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">استهداف مبني على بيانات</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">ماشي حدس، استهداف مبني على تحليل السوق والزبون المثالي تاع نشاطك.</p>
       </div>
-    </div>
-
-    <!-- Tab Content: B2B -->
-    <div id="pricing-b2b" class="pricing-content hidden animate-[fadeIn_0.5s_ease-out]">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <div class="bg-white border border-brand-border rounded-2xl p-6 flex flex-col text-center">
-          <h3 class="text-xl font-bold text-brand-dark mb-4">باقة الانطلاق (B2B)</h3>
-          <div class="text-brand-primary font-bold text-sm mb-4 pb-4 border-b border-brand-border">ميزانية إعلانية:<br><span class="text-lg text-brand-dark">أقل من 500$ شهرياً</span></div>
-          <ul class="text-right space-y-3 text-slate-600 text-sm mb-6 flex-1">
-            <li class="flex gap-2"><span>✓</span> إدارة حملات Lead Gen</li>
-            <li class="flex gap-2"><span>✓</span> استراتيجية استهداف</li>
-            <li class="flex gap-2"><span>✓</span> تقرير أداء شهري</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary font-bold">اشترك الآن</a>
-        </div>
-
-        <div class="bg-brand-dark border-brand-dark rounded-2xl p-6 flex flex-col text-center text-white relative shadow-xl transform lg:-translate-y-2">
-          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gold text-brand-dark font-black text-[10px] px-3 py-1 rounded-full whitespace-nowrap">الأكثر طلباً</div>
-          <h3 class="text-xl font-bold mb-4 mt-2">باقة النمو (Brand)</h3>
-          <div class="text-brand-primary-light font-bold text-sm mb-4 pb-4 border-b border-slate-700">ميزانية إعلانية:<br><span class="text-lg text-white">500$ - 1000$ شهرياً</span></div>
-          <ul class="text-right space-y-3 text-slate-300 text-sm mb-6 flex-1">
-            <li class="flex gap-2"><span class="text-gold">✓</span> حملات متقدمة للوعي</li>
-            <li class="flex gap-2"><span class="text-gold">✓</span> استراتيجية Retargeting</li>
-            <li class="flex gap-2"><span class="text-gold">✓</span> تقرير أداء نصف شهري</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-2 rounded-lg bg-brand-primary text-white font-bold">اشترك الآن</a>
-        </div>
-
-        <div class="bg-white border border-brand-border rounded-2xl p-6 flex flex-col text-center">
-          <h3 class="text-xl font-bold text-brand-dark mb-4">الباقة المتقدمة</h3>
-          <div class="text-brand-primary font-bold text-sm mb-4 pb-4 border-b border-brand-border">ميزانية إعلانية:<br><span class="text-lg text-brand-dark">1000$ - 2000$ شهرياً</span></div>
-          <ul class="text-right space-y-3 text-slate-600 text-sm mb-6 flex-1">
-            <li class="flex gap-2"><span>✓</span> إدارة B2B Scaling</li>
-            <li class="flex gap-2"><span>✓</span> تكامل مع الـ CRM</li>
-            <li class="flex gap-2"><span>✓</span> تقارير أسبوعية</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary font-bold">اشترك الآن</a>
-        </div>
-
-        <div class="bg-brand-surface border border-brand-border rounded-2xl p-6 flex flex-col text-center">
-          <h3 class="text-xl font-bold text-brand-dark mb-4">باقة الهيمنة</h3>
-          <div class="text-brand-primary font-bold text-sm mb-4 pb-4 border-b border-brand-border">ميزانية إعلانية:<br><span class="text-lg text-brand-dark">أكثر من 2000$ شهرياً</span></div>
-          <ul class="text-right space-y-3 text-slate-600 text-sm mb-6 flex-1">
-            <li class="flex gap-2"><span>✓</span> فريق تسويق كامل</li>
-            <li class="flex gap-2"><span>✓</span> جميع المنصات</li>
-            <li class="flex gap-2"><span>✓</span> تقارير مخصصة وقتما شئت</li>
-          </ul>
-          <a href="https://wa.me/213779411291" class="w-full py-2 rounded-lg bg-brand-dark text-white font-bold">تواصل معنا</a>
-        </div>
+      
+      <div class="reveal-on-scroll delay-100">
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xl mb-4">🧪</div>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">اختبار عدة سبونسورات</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">نجربو أكثر من زاوية (UGC، فريلستايل، صور) ونحتفظو غير بلي كايجيب نتيجة.</p>
       </div>
+      
+      <div class="reveal-on-scroll delay-200">
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xl mb-4">🔗</div>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">Pixel وTracking من البداية</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">كل نقرة، رسالة، وطلبية متسجلة، تعرف بالضبط وين رايحة فلوسك.</p>
+      </div>
+      
+      <div class="reveal-on-scroll">
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xl mb-4">👁️</div>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">متابعة يومية، ماشي سبونسور ونمشي</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">نراقبو الحملة كل يوم، نبدلو، نوقفو، نزيدو حسب النتائج الحقيقية.</p>
+      </div>
+      
+      <div class="reveal-on-scroll delay-100">
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xl mb-4">📄</div>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">تقرير أسبوعي واضح</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">أرقام صريحة: شحال ليد، بكم، وين رايح الفلوس — بلا تجميل.</p>
+      </div>
+      
+      <div class="reveal-on-scroll delay-200">
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xl mb-4">🔓</div>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">بلا التزام طويل</h3>
+        <p class="text-brand-slate text-sm leading-relaxed">تقدر توقف الحملة وقتما حبيت، ماكاين عقد يربطك سنة كاملة.</p>
+      </div>
+      
     </div>
-    
   </div>
 </section>
 
-<!-- CTA -->
-<section class="py-24 bg-brand-surface text-center">
-  <div class="max-w-2xl mx-auto px-4 reveal-on-scroll">
-    <h2 class="text-3xl font-bold text-brand-dark mb-6">تواصل معنا الآن</h2>
-    <p class="text-slate-600 text-lg mb-10">تحدث معنا واحصل على استشارة أولية مجانية لمتجرك الإلكتروني أو لشركتك.</p>
-    <a href="https://wa.me/213779411291" target="_blank" class="inline-flex items-center justify-center px-10 py-4 rounded-xl bg-brand-primary hover:bg-brand-secondary text-white font-bold text-lg shadow-lg">
-      احجز استشارتك المجانية
-    </a>
+<!-- Integrations -->
+<section class="py-24 bg-brand-dark text-white relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="mb-16 reveal-on-scroll">
+      <span class="inline-block px-3 py-1 bg-white/10 text-brand-primary-light text-sm font-bold rounded-md mb-4 tracking-wider">نربط كل أداة تتبع الزبون</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">ماشي غير سبونسور، منظومة كاملة تتبعو من النقرة حتى الطلبية.</h2>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors reveal-on-scroll">
+        <div class="font-bold text-lg mb-1">Meta Pixel</div>
+        <div class="text-gray-400 text-xs">تتبع التحويلات وإعادة الاستهداف</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors reveal-on-scroll delay-100">
+        <div class="font-bold text-lg mb-1">Facebook & Insta</div>
+        <div class="text-gray-400 text-xs">سبونسورات مدروسة على أكبر منصة</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors reveal-on-scroll delay-200">
+        <div class="font-bold text-lg mb-1">WhatsApp Business</div>
+        <div class="text-gray-400 text-xs">الليدات توصلك مباشرة، جاهزة للرد</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors reveal-on-scroll">
+        <div class="font-bold text-lg mb-1">Google Analytics</div>
+        <div class="text-gray-400 text-xs">بيانات الزيارات والتحويلات لموقعك</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors reveal-on-scroll delay-100">
+        <div class="font-bold text-lg mb-1">بوت تيليجرام</div>
+        <div class="text-gray-400 text-xs">تنبيه فوري بكل ليد جديدة</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors reveal-on-scroll delay-200">
+        <div class="font-bold text-lg mb-1">TikTok Pixel</div>
+        <div class="text-gray-400 text-xs">لمن نوسعو الحملة لمنصات أكثر</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Us & Comparison -->
+<section id="whyus" class="py-24 bg-brand-surface relative border-b border-brand-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 reveal-on-scroll">
+      <span class="inline-block px-3 py-1 bg-white border border-brand-border text-brand-muted text-sm font-bold rounded-md mb-4 tracking-wider">الأسباب</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-4">لماذا السبونسور المدروس، ولماذا نحن.</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+      
+      <div>
+        <h3 class="text-2xl font-bold text-brand-dark mb-8">لماذا السبونسور المدروس أحسن من العشوائي؟</h3>
+        
+        <div class="space-y-6">
+          <div class="flex gap-4 reveal-on-scroll">
+            <div class="font-inter font-black text-2xl text-brand-primary w-8">01</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">بلا استهداف، تدفع باش يفرجو ناس ما عندهمش نية الشراء</h4>
+              <p class="text-brand-slate text-sm">الميزانية تروح على "وصول" بدل ما تروح على زبون حقيقي مستعد يشري.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 reveal-on-scroll">
+            <div class="font-inter font-black text-2xl text-brand-primary w-8">02</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">الحملة تحتاج متابعة يومية</h4>
+              <p class="text-brand-slate text-sm">"نبوّست ونمشي" يخلي الفلوس تطير، الحملة الناجحة تتعدل كل يوم حسب النتائج.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 reveal-on-scroll">
+            <div class="font-inter font-black text-2xl text-brand-primary w-8">03</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">الأرقام غير لي تكشفلك الحقيقة</h4>
+              <p class="text-brand-slate text-sm">"حاسة الحملة ماشية مليح" ماشي مقياس، التقرير الأسبوعي بالأرقام هو المقياس.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 reveal-on-scroll">
+            <div class="font-inter font-black text-2xl text-brand-primary w-8">04</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">السبونسور الصحيح يبني قاعدة زبائن ترجعلك</h4>
+              <p class="text-brand-slate text-sm">ماشي بيعة وحدة وسلام، هدفنا زبون يشري ويرجع يشري مرة أخرى.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-2xl font-bold text-brand-dark mb-8">لماذا تخدم مع Adpowers؟</h3>
+        
+        <div class="space-y-6">
+          <div class="flex gap-4 reveal-on-scroll delay-100">
+            <div class="font-inter font-black text-2xl text-brand-dark w-8">01</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">خبرة حقيقية فالميديا باينغ فالسوق الجزائري</h4>
+              <p class="text-brand-slate text-sm">نعرفو كيفاش يشري الزبون الجزائري، وشنو الزاوية اللي تخدم عندو.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 reveal-on-scroll delay-100">
+            <div class="font-inter font-black text-2xl text-brand-dark w-8">02</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">نبنيولك المسار كامل</h4>
+              <p class="text-brand-slate text-sm">من الصورة والفيديو، للاستهداف، للتتبع، حتى الليد يوصلك جاهز.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 reveal-on-scroll delay-100">
+            <div class="font-inter font-black text-2xl text-brand-dark w-8">03</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">تقارير صريحة بالأرقام</h4>
+              <p class="text-brand-slate text-sm">بلا تجميل ولا وعود فارغة، تشوف بالضبط وين رايحة فلوستك.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 reveal-on-scroll delay-100">
+            <div class="font-inter font-black text-2xl text-brand-dark w-8">04</div>
+            <div>
+              <h4 class="font-bold text-brand-dark mb-1">نخدمو بميزانية تناسب قدرتك</h4>
+              <p class="text-brand-slate text-sm">ماشي نضغطوك تصرف أكثر من طاقتك، نبداو بميزانية معقولة ونكبروها حسب النتيجة.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Compare Table Section -->
+<section id="compare" class="py-24 bg-white relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center reveal-on-scroll">
+      <span class="inline-block px-3 py-1 bg-gray-100 text-brand-muted text-sm font-bold rounded-md mb-4 tracking-wider">قارن بنفسك</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark mb-4">Adpowers مقابل الطرق الأخرى — شوف وين تخسر ووين تربح.</h2>
+      <p class="text-lg text-brand-slate max-w-3xl mx-auto">سبونسور عشوائي بروحك، فريلانسر، ولا وكالات أخرى — كل وحدة عندها ثمنها، لكن ماشي كلهم يعطيوك متابعة يومية وأرقام صريحة.</p>
+    </div>
+    
+    <div class="overflow-x-auto pb-8 reveal-on-scroll delay-100">
+      <table class="w-full min-w-[800px] text-right border-collapse">
+        <thead>
+          <tr class="border-b-2 border-brand-dark text-lg">
+            <th class="py-4 px-6 font-bold w-1/3">الميزة</th>
+            <th class="py-4 px-6 font-bold text-brand-primary bg-brand-primary/5 rounded-t-xl"><span class="dot-badge"></span> Adpowers</th>
+            <th class="py-4 px-6 font-bold text-brand-slate">وكالات أخرى</th>
+            <th class="py-4 px-6 font-bold text-brand-slate">فريلانسر</th>
+            <th class="py-4 px-6 font-bold text-brand-slate">تبويست عشوائي بروحك</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm">
+          <tr class="border-b border-brand-border">
+            <td class="py-4 px-6 font-bold text-brand-dark">استهداف مبني على بيانات</td>
+            <td class="py-4 px-6 font-bold text-brand-primary bg-brand-primary/5">✅ أكيد</td>
+            <td class="py-4 px-6 text-brand-slate">أحياناً</td>
+            <td class="py-4 px-6 text-brand-slate">أحياناً</td>
+            <td class="py-4 px-6 text-red-500">❌ لا</td>
+          </tr>
+          <tr class="border-b border-brand-border">
+            <td class="py-4 px-6 font-bold text-brand-dark">متابعة ومراقبة يومية</td>
+            <td class="py-4 px-6 font-bold text-brand-primary bg-brand-primary/5">✅ يومياً</td>
+            <td class="py-4 px-6 text-brand-slate">أسبوعياً غالباً</td>
+            <td class="py-4 px-6 text-brand-slate">حسب الطلب</td>
+            <td class="py-4 px-6 text-red-500">❌ لا</td>
+          </tr>
+          <tr class="border-b border-brand-border">
+            <td class="py-4 px-6 font-bold text-brand-dark">Pixel وTracking من البداية</td>
+            <td class="py-4 px-6 font-bold text-brand-primary bg-brand-primary/5">✅ دائماً</td>
+            <td class="py-4 px-6 text-brand-slate">نعم</td>
+            <td class="py-4 px-6 text-brand-slate">نادر</td>
+            <td class="py-4 px-6 text-red-500">❌ لا</td>
+          </tr>
+          <tr class="border-b border-brand-border">
+            <td class="py-4 px-6 font-bold text-brand-dark">تقرير أسبوعي واضح بالأرقام</td>
+            <td class="py-4 px-6 font-bold text-brand-primary bg-brand-primary/5">✅ أسبوعي شفاف</td>
+            <td class="py-4 px-6 text-brand-slate">شهري معقد</td>
+            <td class="py-4 px-6 text-brand-slate">مجرد صور (Screenshots)</td>
+            <td class="py-4 px-6 text-brand-slate">نظرة عامة فقط</td>
+          </tr>
+          <tr>
+            <td class="py-4 px-6 font-bold text-brand-dark">بلا عقد أو التزام طويل</td>
+            <td class="py-4 px-6 font-bold text-brand-primary bg-brand-primary/5 rounded-b-xl">✅ نعم، حرية تامة</td>
+            <td class="py-4 px-6 text-brand-slate">❌ عقود طويلة غالباً</td>
+            <td class="py-4 px-6 text-brand-slate">نعم</td>
+            <td class="py-4 px-6 text-brand-slate">نعم</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <p class="text-center text-brand-muted text-xs mt-4">مقارنة عامة مبنية على القدرات المعتادة لكل طريقة — التفاصيل تختلف حسب الشخص أو الوكالة اللي تخدم معاها.</p>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-brand-primary text-white text-center">
+  <div class="max-w-4xl mx-auto px-4 reveal-on-scroll">
+    <h2 class="text-4xl font-extrabold mb-6 leading-tight">وقف تصرف الفلوس بلا نتيجة، ابدا تجيب زبائن حقيقيين اليوم.</h2>
+    <p class="text-lg font-medium text-brand-primary-light mb-10 max-w-2xl mx-auto">ما ثماش خدمة سحرية، ثماني استهداف صحيح، Pixel مركب مليح، ومتابعة يومية. اطلب استشارة مجانية ونشوفو وين تقدر تربح أكثر من ميزانيتك.</p>
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="https://wa.me/213779411291" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-dark hover:bg-black text-white font-bold text-lg transition-all duration-200 shadow-xl border border-gray-700">
+        اطلب استشارة مجانية <span class="mr-2">←</span>
+      </a>
+      <a href="#compare" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-transparent hover:bg-white/10 border border-white/30 text-white font-bold text-lg transition-all duration-200">
+        قارن بنفسك
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer class="bg-white py-12 border-t border-brand-border">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <div class="max-w-7xl mx-auto px-4 text-center">
     <img src="logo.png" alt="Adpowers" class="h-10 w-auto mx-auto rounded-xl mb-6">
-    <p class="text-slate-500 font-medium text-sm font-inter">© 2026 Adpowers Digital. Tous droits réservés.</p>
+    <p class="text-slate-500 font-medium text-sm font-inter">© 2026 Adpowers Digital. حملات ميتا مدروسة، متابعة يومية، نتائج حقيقية.</p>
   </div>
 </footer>
 
-<!-- AI Chat Widget (Restyled for Light Mode) -->
-<div class="chat-widget">
+<!-- AI Chat Widget -->
+<div class="fixed bottom-8 left-8 z-[9999]">
   <button class="w-14 h-14 rounded-full bg-brand-primary text-white shadow-xl hover:scale-110 transition-transform flex items-center justify-center text-2xl" id="chat-toggle">💬</button>
-  <div class="chat-window" id="chat-window">
+  <div class="absolute bottom-20 left-0 w-[350px] h-[500px] bg-white border border-brand-border rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 translate-y-4 opacity-0 pointer-events-none" id="chat-window">
     <div class="bg-brand-dark p-4 flex justify-between items-center text-white" dir="ltr">
       <h3 class="font-bold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Assistant Adpowers
       </h3>
       <button class="text-slate-300 hover:text-white" id="chat-close">✖</button>
     </div>
-    <div class="chat-messages" id="chat-messages" dir="ltr">
-      <div class="message bot">Bonjour ! Je suis l'assistant virtuel d'Adpowers Digital. Comment puis-je vous aider aujourd'hui ?</div>
+    <div class="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-brand-surface" id="chat-messages" dir="ltr">
+      <div class="max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed text-right bg-brand-primary-light text-brand-dark self-start rounded-br-sm">Bonjour ! Je suis l'assistant virtuel d'Adpowers Digital. Comment puis-je vous aider aujourd'hui ?</div>
     </div>
     <div class="p-4 bg-white border-t border-brand-border flex gap-2" dir="ltr">
-      <input type="text" id="chat-input" placeholder="Posez votre question..." autocomplete="off" class="flex-1 bg-brand-surface border border-brand-border px-4 py-2 rounded-full text-slate-800 text-sm focus:outline-none focus:border-brand-primary">
-      <button id="chat-send" class="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-secondary transition-colors">➤</button>
+      <input type="text" id="chat-input" placeholder="Posez votre question..." autocomplete="off" class="flex-1 bg-brand-surface border border-brand-border px-4 py-2 rounded-full text-brand-dark text-sm focus:outline-none focus:border-brand-primary">
+      <button id="chat-send" class="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center hover:bg-brand-primary-dark transition-colors">➤</button>
     </div>
   </div>
 </div>
@@ -442,33 +541,6 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-  // Pricing Tabs
-  function switchPricing(tab) {
-    const btns = document.querySelectorAll('.tab-btn');
-    const contents = document.querySelectorAll('.pricing-content');
-    
-    btns.forEach(btn => {
-      btn.classList.remove('bg-brand-primary', 'text-white', 'shadow-md');
-      btn.classList.add('bg-brand-surface', 'text-slate-600', 'border', 'border-brand-border');
-    });
-    contents.forEach(content => {
-      content.classList.remove('block');
-      content.classList.add('hidden');
-    });
-    
-    if(tab === 'general') {
-      btns[0].classList.add('bg-brand-primary', 'text-white', 'shadow-md');
-      btns[0].classList.remove('bg-brand-surface', 'text-slate-600', 'border', 'border-brand-border');
-      document.getElementById('pricing-general').classList.remove('hidden');
-      document.getElementById('pricing-general').classList.add('block');
-    } else {
-      btns[1].classList.add('bg-brand-primary', 'text-white', 'shadow-md');
-      btns[1].classList.remove('bg-brand-surface', 'text-slate-600', 'border', 'border-brand-border');
-      document.getElementById('pricing-b2b').classList.remove('hidden');
-      document.getElementById('pricing-b2b').classList.add('block');
-    }
-  }
-
   // Chat logic
   const chatToggle = document.getElementById('chat-toggle');
   const chatClose = document.getElementById('chat-close');
@@ -477,15 +549,26 @@
   const chatInput = document.getElementById('chat-input');
   const chatSend = document.getElementById('chat-send');
 
-  chatToggle.addEventListener('click', () => chatWindow.classList.toggle('open'));
-  chatClose.addEventListener('click', () => chatWindow.classList.remove('open'));
+  chatToggle.addEventListener('click', () => {
+    chatWindow.classList.toggle('translate-y-4');
+    chatWindow.classList.toggle('opacity-0');
+    chatWindow.classList.toggle('pointer-events-none');
+  });
+  chatClose.addEventListener('click', () => {
+    chatWindow.classList.add('translate-y-4', 'opacity-0', 'pointer-events-none');
+  });
 
   const ZHIPU_API_KEY = "1a70da8747b34009885d6b1fbb1b24c4.vpeEBpZGrrpB9zAb";
   let messageHistory = [{ role: "system", content: "Tu es l'assistant virtuel de l'agence Adpowers Digital (basée à Alger). Réponds aux questions des clients poliment." }];
 
   function addMessage(text, sender) {
     const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message', sender);
+    msgDiv.classList.add('max-w-[80%]', 'p-3', 'rounded-2xl', 'text-sm', 'leading-relaxed', 'text-right');
+    if (sender === 'bot') {
+      msgDiv.classList.add('bg-brand-primary-light', 'text-brand-dark', 'self-start', 'rounded-br-sm');
+    } else {
+      msgDiv.classList.add('bg-brand-primary', 'text-white', 'self-end', 'rounded-bl-sm');
+    }
     msgDiv.textContent = text;
     chatMessages.appendChild(msgDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -499,7 +582,7 @@
     chatInput.value = '';
     
     const loadingDiv = document.createElement('div');
-    loadingDiv.classList.add('message', 'bot');
+    loadingDiv.classList.add('max-w-[80%]', 'p-3', 'rounded-2xl', 'text-sm', 'leading-relaxed', 'text-right', 'bg-brand-primary-light', 'text-brand-dark', 'self-start', 'rounded-br-sm');
     loadingDiv.textContent = '...';
     loadingDiv.id = 'chat-loading';
     chatMessages.appendChild(loadingDiv);
